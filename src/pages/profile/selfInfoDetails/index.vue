@@ -29,7 +29,7 @@
       />
     </div>
 
-    <div class="mx-3 mt-2 overflow-hidden rounded-md">
+    <!-- <div class="mx-3 mt-2 overflow-hidden rounded-md">
       <DetailInfoItem
         :lable="$t('cellphone')"
         :content="userStore.storeSelfInfo.phoneNumber"
@@ -39,7 +39,7 @@
         :lable="$t('email')"
         :content="userStore.storeSelfInfo.email"
       />
-    </div>
+    </div> -->
 
     <van-uploader
       v-show="false"

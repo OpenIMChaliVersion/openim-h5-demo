@@ -16,7 +16,7 @@
           conversationStore.storeCurrentConversation.showName
         }}</span>
       </div>
-      <img width="44" :src="create_group" alt="" @click="createGroup" />
+      <!-- <img width="44" :src="create_group" alt="" @click="createGroup" /> -->
     </div>
   </div>
 </template>

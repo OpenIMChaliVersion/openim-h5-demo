@@ -22,7 +22,7 @@
         }}</span>
       </div>
 
-      <div
+      <div v-if="!isNomal"
         class="flex w-[42px] shrink-0 grow-0 basis-1/5 flex-col items-center justify-center px-[6px] pb-[10px]"
       >
         <img class="h-12 w-12" :src="group_invite" alt="" @click.stop="inviteMember" />

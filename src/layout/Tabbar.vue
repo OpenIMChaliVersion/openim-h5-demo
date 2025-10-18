@@ -5,12 +5,12 @@
       :badge="conversationStore.storeUnReadCount"
       :badge-props="{ max: 99, showZero: false }"
     >
-      <span>OpenIM</span>
+      <span>查理</span>
       <template #icon="props">
         <img :src="props.active ? conversation_active : conversation" />
       </template>
     </van-tabbar-item>
-    <van-tabbar-item
+    <!-- <van-tabbar-item
       to="/contact"
       :badge="unHandleApplicationCount"
       :badge-props="{ max: 99, showZero: false }"
@@ -19,13 +19,13 @@
       <template #icon="props">
         <img :src="props.active ? contacts_active : contacts" />
       </template>
-    </van-tabbar-item>
-    <van-tabbar-item to="/workbench">
+    </van-tabbar-item> -->
+    <!-- <van-tabbar-item to="/workbench">
       <span>{{ $t('workbench') }}</span>
       <template #icon="props">
         <img :src="props.active ? workbench_active : workbench" />
       </template>
-    </van-tabbar-item>
+    </van-tabbar-item> -->
     <van-tabbar-item to="/profile">
       <span>{{ $t('profile') }}</span>
       <template #icon="props">

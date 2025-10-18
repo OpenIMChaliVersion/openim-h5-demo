@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="flex">
+    <!-- <div class="flex">
       <van-popover
         :show-arrow="false"
         v-model:show="showPopover"
@@ -49,7 +49,7 @@
           <img :src="add" alt="add" width="24" />
         </template>
       </van-popover>
-    </div>
+    </div> -->
   </div>
 </template>
 

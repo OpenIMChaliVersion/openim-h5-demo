@@ -74,10 +74,10 @@ const profileMenus = [
     title: t('profileMenu.aboutUs'),
     route: 'about',
   },
-  {
-    icon: logout,
-    title: t('profileMenu.logOut'),
-  },
+  // {
+  //   icon: logout,
+  //   title: t('profileMenu.logOut'),
+  // },
 ]
 
 watch(locale, () => {

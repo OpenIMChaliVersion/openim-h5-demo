@@ -11,7 +11,7 @@
       />
     </div>
 
-    <div class="mx-2 mb-2 overflow-hidden rounded-md">
+    <!-- <div class="mx-2 mb-2 overflow-hidden rounded-md">
       <CardDescItem :lable="$t('checks.addToBlack')" arrow>
         <van-switch
           size="20"
@@ -20,9 +20,9 @@
           @update:model-value="toggleBlack"
         />
       </CardDescItem>
-    </div>
+    </div> -->
 
-    <div v-if="isFriendUser" class="mx-2 rounded-md">
+    <!-- <div v-if="isFriendUser" class="mx-2 rounded-md">
       <van-button
         class="w-full !border-0 !text-base !text-error-text"
         plain
@@ -30,7 +30,7 @@
         :text="$t('unfriend')"
         @click="tryRemoveFriend"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -18,7 +18,7 @@
       <DetailInfoItem :lable="$t('birthday')" :content="birthStr" />
     </div>
 
-    <div class="mx-2 overflow-hidden rounded-md">
+    <!-- <div class="mx-2 overflow-hidden rounded-md">
       <DetailInfoItem
         :lable="$t('cellphone')"
         :content="contactStore.storeUserCardData.baseInfo?.phoneNumber"
@@ -27,7 +27,7 @@
         :lable="$t('email')"
         :content="contactStore.storeUserCardData.baseInfo?.email"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 

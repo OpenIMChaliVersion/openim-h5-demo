@@ -63,7 +63,7 @@ const { fetchState, getMemberData } = useGroupMemberList(
   pageState.groupID,
 )
 const { isOwner } = useCurrentMemberRole(pageState.groupID)
-
+const { isNomal } = useCurrentMemberRole(pageState.groupID)
 const action = ref(pageState.action)
 const checkedMemberIDList = ref([] as string[])
 
@@ -120,6 +120,10 @@ const tryBack = () => {
 }
 
 const clickItem = async (member: GroupMemberItem) => {
+  console.log('isNomal', isNomal.value);
+  if(isNomal.value){
+    return
+  }
   if (action.value === MemberListActionEnum.Transfer) {
     showConfirmDialog({
       message: t('messageTip.transferOwner', { name: member.nickname }),
