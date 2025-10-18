@@ -81,6 +81,10 @@ const getRenderComp = computed(() => {
 
 const toDetails = async (e: Event) => {
   e.preventDefault()
+  if(!isSing.value) {
+    return
+  }
+  e.stopPropagation()
   contactStore.getUserCardData(props.source.sendID, props.source.groupID)
 }
 </script>

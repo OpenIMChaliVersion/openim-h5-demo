@@ -10,7 +10,7 @@
       :keeps="20"
       :data-component="
         (message: MessageItem) =>
-          checkIsNotification(message) ? SystemNotificationItem : MessageItemVue
+          checkIsNotification(message) ? null : MessageItemVue
       "
       :estimate-size="80"
       @totop="onTotop"
