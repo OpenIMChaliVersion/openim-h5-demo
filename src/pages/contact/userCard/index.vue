@@ -34,14 +34,14 @@
               {{ contactStore.storeUserCardData.baseInfo?.userID }}
             </span>
           </div>
-          <div
+          <!-- <div
             v-if="cannAddFriend && !isSelf"
             class="ml-auto flex h-[30px] flex-row items-center justify-center rounded-md bg-primary px-2 py-1"
             @click="toAddFriend"
           >
             <img width="20" :src="add" alt="" />
             <span class="text-sm text-white">{{ $t('add') }}</span>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -60,7 +60,7 @@
     </div>
 
     <div class="mb-6 mt-8 flex w-full justify-between px-[22px]">
-      <van-button
+      <!-- <van-button
         v-if="!isSelf"
         :icon="message"
         type="primary"
@@ -68,7 +68,7 @@
         @click="toConversation"
       >
         {{ $t('sendMessage') }}
-      </van-button>
+      </van-button> -->
     </div>
   </div>
 </template>
