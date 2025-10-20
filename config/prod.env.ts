@@ -1,7 +1,8 @@
-const BASE_DOMAIN = 'your-server-domain'
-const CHAT_URL = `http://${BASE_DOMAIN}/chat`
-const API_URL = `http://${BASE_DOMAIN}/api`
-const WS_URL = `ws://${BASE_DOMAIN}/msg_gateway`
+const BASE_DOMAIN = '43.160.198.172'
+const CHAT_URL = `http://${BASE_DOMAIN}:10008`
+const API_URL = `http://${BASE_DOMAIN}:10002`
+const WS_URL = `ws://${BASE_DOMAIN}:10001`
+
 
 export default {
   NODE_ENV: 'production',
