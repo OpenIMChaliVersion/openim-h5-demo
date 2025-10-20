@@ -197,3 +197,13 @@ OpenIM 为开发者提供开源即时通讯 SDK，作为 Twilio、Sendbird 等�
 1. 发布 web 端时，wasm 加载太慢如何解决？
 
    答：针对 wasm 文件采用 gzip 压缩，压缩后会大大减小体积。同时可以做 cdn 加速，加快加载速度。
+
+2. 制作docker 镜像
+
+   答：
+   第一步：创建Dockerfile
+```
+
+```
+```
+```
