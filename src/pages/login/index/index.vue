@@ -50,7 +50,7 @@ const onchaliAuto = async () => {
       nickname: vname,
       phoneNumber: '',
       areaCode: '',
-      faceURL: '',
+      faceURL: 'https://kefu.acone.icu/api/object/9653164283/1761021086245png',
       email: vemail,
       birth: 0,
       gender: 0,
