@@ -74,26 +74,28 @@ export const tipMessaggeFormat = (msg: MessageItem) => {
           : data.sourceMessageSenderNickname
       const isAdminRevoke = data.revokerID !== data.sourceMessageSendID
       if (isAdminRevoke) {
-        return t('messageDescription.advanceRevokeMessage', {
-          operator: linkWrap({
-            userID: data.revokerID,
-            groupID: msg.groupID,
-            name: operator,
-          }),
-          revoker: linkWrap({
-            userID: data.sourceMessageSendID,
-            groupID: msg.groupID,
-            name: revoker,
-          }),
-        })
+        // return t('messageDescription.advanceRevokeMessage', {
+        //   operator: linkWrap({
+        //     userID: data.revokerID,
+        //     groupID: msg.groupID,
+        //     name: operator,
+        //   }),
+        //   revoker: linkWrap({
+        //     userID: data.sourceMessageSendID,
+        //     groupID: msg.groupID,
+        //     name: revoker,
+        //   }),
+        // })
+        return "每一份托付，都值得精心守护"
       }
-      return t('messageDescription.revokeMessage', {
-        revoker: linkWrap({
-          userID: data.revokerID,
-          groupID: msg.groupID,
-          name: operator,
-        }),
-      })
+      // return t('messageDescription.revokeMessage', {
+      //   revoker: linkWrap({
+      //     userID: data.revokerID,
+      //     groupID: msg.groupID,
+      //     name: operator,
+      //   }),
+      // })
+         return "每一份托付，都值得精心守护"
     case MessageType.GroupCreated:
       const groupCreatedDetail = JSON.parse(msg.notificationElem?.detail!)
       const groupCreatedUser = groupCreatedDetail.opUser
@@ -182,20 +184,21 @@ export const tipMessaggeFormat = (msg: MessageItem) => {
           })}、`),
       )
       kickStr = kickStr.slice(0, -1)
-      return t('messageDescription.kickInGroupMessage', {
-        operator: linkWrap({
-          userID: kickOpUser.userID,
-          groupID: msg.groupID,
-          name: getName(kickOpUser),
-        }),
-        kickedUser: `${kickStr}${
-          kickdUserList.length > 3
-            ? `${t('messageDescription.somePerson', {
-                num: kickdUserList.length,
-              })}`
-            : ''
-        }`,
-      })
+      // return t('messageDescription.kickInGroupMessage', {
+      //   operator: linkWrap({
+      //     userID: kickOpUser.userID,
+      //     groupID: msg.groupID,
+      //     name: getName(kickOpUser),
+      //   }),
+      //   kickedUser: `${kickStr}${
+      //     kickdUserList.length > 3
+      //       ? `${t('messageDescription.somePerson', {
+      //           num: kickdUserList.length,
+      //         })}`
+      //       : ''
+      //   }`,
+      // })
+      return "每一份托付，都值得精心守护"
     case MessageType.MemberEnter:
       const enterDetails = JSON.parse(msg.notificationElem?.detail!)
       const enterUser = enterDetails.entrantUser
@@ -404,13 +407,14 @@ export const formatMessageByType = (message: MessageItem): string => {
       const revokerID = data.revokerID
       const revoker = isSelf(revokerID) ? t('you') : data.revokerNickname
       const isAdminRevoke = data.revokerID !== data.sourceMessageSendID
-      if (isAdminRevoke) {
-        return t('messageDescription.advanceRevokeMessage', {
-          operator: data.sourceMessageSendNickname,
-          revoker,
-        })
-      }
-      return t('messageDescription.revokeMessage', { revoker })
+      // if (isAdminRevoke) {
+      //   return t('messageDescription.advanceRevokeMessage', {
+      //     operator: data.sourceMessageSendNickname,
+      //     revoker,
+      //   })
+      // }
+      // return t('messageDescription.revokeMessage', { revoker })
+      return "每一份托付，都值得精心守护"
     case MessageType.QuoteMessage:
       return message.quoteElem?.text || t('messageDescription.quoteMessage')
     case MessageType.FaceMessage:
@@ -455,16 +459,17 @@ export const formatMessageByType = (message: MessageItem): string => {
       let kickStr = ''
       kickdUserList.slice(0, 3).map((user: any) => (kickStr += `${getName(user)}、`))
       kickStr = kickStr.slice(0, -1)
-      return t('messageDescription.kickInGroupMessage', {
-        operator: getName(kickOpUser),
-        kickedUser: `${kickStr}${
-          kickdUserList.length > 3
-            ? `${t('messageDescription.somePerson', {
-                num: kickdUserList.length,
-              })}`
-            : ''
-        }`,
-      })
+      // return t('messageDescription.kickInGroupMessage', {
+      //   operator: getName(kickOpUser),
+      //   kickedUser: `${kickStr}${
+      //     kickdUserList.length > 3
+      //       ? `${t('messageDescription.somePerson', {
+      //           num: kickdUserList.length,
+      //         })}`
+      //       : ''
+      //   }`,
+      // })
+      return "每一份托付，都值得精心守护"
     case MessageType.MemberQuit:
       const quitDetails = JSON.parse(message.notificationElem?.detail!)
       const quitUser = quitDetails.quitUser
