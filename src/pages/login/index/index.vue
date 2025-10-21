@@ -22,10 +22,10 @@ const onchaliAuto = async () => {
   const hours: number = date.getHours();
   const minutes: number = date.getMinutes();
   const seconds: number = date.getSeconds();
-  const invitationCode = '9332160460';
+  const invitationCode = 'LyvA69qG';
   const vnumber = '13800138005'
   const vpass = 'chali22222'
-  const vname = `查理${day}${hours}${minutes}${seconds}`
+  const vname = `访客${day}${hours}${minutes}${seconds}`
   const vemail = `wuchali${timestampInMillis}@163.com`
    sendSms({
     phoneNumber: '',
