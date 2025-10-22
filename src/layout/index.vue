@@ -44,6 +44,7 @@ const showProgress = computed(
 )
 
 onMounted(() => {
+  console.log('初始化 onMounted', 'onMounted layout index.vue')
   loginCheck()
 })
 
@@ -57,6 +58,7 @@ router.beforeEach(async (to, from, next) => {
     if (data === LoginStatus.Logout) {
       loginCheck()
     }
+    console.log('初始化 router.beforeEach ', data)
   }
   next()
 })
@@ -66,6 +68,7 @@ const loginCheck = () => {
   const IMUserID = getIMUserID()
   if (!IMToken || !IMUserID) {
     router.push('/login')
+    console.log('初始化 onMounted', '!IMToken || !IMUserID')
     return
   }
   tryLogin()
@@ -83,8 +86,10 @@ const tryLogin = async () => {
       platformID: 5,
       logLevel: Number(getLogLevel()),
     })
+    console.log('初始化 tryLogin error', 'IMSDK.login success')
     initStore()
   } catch (error) {
+    console.log('初始化 tryLogin error', error)
     router.push('/login')
   }
 }
