@@ -547,18 +547,25 @@ export const formatMessageByType = (message: MessageItem): string => {
 }
 
 export const initStore = () => {
+  console.log('初始化 initStore')
   const userStore = useUserStore()
   const conversationStore = useConversationStore()
-  const contactStore = useContactStore()
-
+  // const contactStore = useContactStore()
+ 
   userStore.getSelfInfoFromReq()
   conversationStore.getUnReadCountFromReq()
   conversationStore.getConversationListFromReq()
-  contactStore.getBlackListFromReq()
-  contactStore.getRecvFriendApplicationListFromReq()
-  contactStore.getSendFriendApplicationListFromReq()
-  contactStore.getRecvGroupApplicationListFromReq()
-  contactStore.getSendGroupApplicationListFromReq()
+  // contactStore.getBlackListFromReq()
+  // contactStore.getRecvFriendApplicationListFromReq()
+  // contactStore.getSendFriendApplicationListFromReq()
+  // contactStore.getRecvGroupApplicationListFromReq()
+  // contactStore.getSendGroupApplicationListFromReq()
+
+   console.log('初始化 initStore storeSelfInfo',userStore.storeSelfInfo)
+   console.log('初始化 initStore userID',userStore.storeSelfInfo.userID)
+   console.log('初始化 initStore storeConversationList',conversationStore.storeConversationList)
+   console.log('初始化 initStore storeConversationList',conversationStore.storeConversationList)
+
 }
 
 export const conversationSort = (conversationList: ConversationItem[]) => {
