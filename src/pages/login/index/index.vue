@@ -28,8 +28,6 @@ const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const loadingStr = ref('正在初始化...')
-import { LoginStatus } from '@openim/wasm-client-sdk'
-
 const onchaliAuto = async () => {
 
   let vemail = "";
@@ -127,15 +125,16 @@ const onchaliAuto = async () => {
       })
        loadingStr.value = '正在初始化 90%'
       const { data } = await IMSDK.getLoginStatus()
-      if (data === LoginStatus.Logged) {
+    
+      if (data === 3) {
           initStore()
           loadingStr.value = '正在初始化 99%'
           router.push('/conversation')
       }
-      if (data !== LoginStatus.Logging) {
+      // if (data !== LoginStatus.Logging) {
        
-      }
-      if (data === LoginStatus.Logging) {
+      // }
+      // if (data === LoginStatus.Logging) {
         // const unLoginInterval = setInterval(async () => {
         //   const { data } = await IMSDK.getLoginStatus()
         //   if (data === LoginStatus.Logged) {
@@ -145,7 +144,7 @@ const onchaliAuto = async () => {
         //     router.push('/conversation')
         //   }
         // }, 1000)
-      }
+      // }
     }
     else {
       const { data: { chatToken, imToken, userID }, } = await login({
