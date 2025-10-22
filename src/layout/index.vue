@@ -66,11 +66,13 @@ router.beforeEach(async (to, from, next) => {
 const loginCheck = () => {
   const IMToken = getIMToken()
   const IMUserID = getIMUserID()
+  console.log('初始化 loginCheck', IMToken, IMUserID)
   if (!IMToken || !IMUserID) {
     router.push('/login')
     console.log('初始化 onMounted', '!IMToken || !IMUserID')
     return
   }
+  console.log('初始化 loginCheck', IMToken, IMUserID)
   tryLogin()
 }
 
