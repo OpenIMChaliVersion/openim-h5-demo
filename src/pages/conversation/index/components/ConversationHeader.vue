@@ -1,15 +1,15 @@
 <template>
   <div class="header flex items-center px-[22px] py-4">
-    <Avatar
+    <!-- <Avatar
       :size="48"
       :src="userStore.storeSelfInfo.faceURL"
       :desc="userStore.storeSelfInfo.nickname"
-    />
+    /> -->
     <div class="mx-3 flex-1 text-xs">
       <div class="flex items-center">
-        <div class="max-w-[30vw] truncate text-base">
+        <!-- <div class="max-w-[30vw] truncate text-base">
           {{ userStore.storeSelfInfo.nickname }}
-        </div>
+        </div> -->
         <div v-if="!userStore.reinstall">
           <view
             class="ml-3 flex h-[22px] w-[76px] items-center justify-center rounded-md bg-[#F2F8FF]"
