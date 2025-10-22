@@ -2,14 +2,6 @@
   <div class="page_container relative !bg-white px-10">
     <img class="mx-auto mt-[80px] h-16 w-16" src="@assets/images/logo.png" alt="" />
     <div class="mx-auto text-lg font-semibold text-primary">{{ $t('welcome') }}</div>
-
-    <div class="center-container">
-      <van-loading v-if="loading" class="mt-20" type="spinner" size="24px" color="#1677ff">
-        <div style="text-align: center;">
-          连线中...
-        </div>
-      </van-loading>
-    </div>
   </div>
 </template>
 
@@ -24,46 +16,30 @@ const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const onchaliAuto = async () => {
-  loading.value = true
 
-  var vemail = ''
-  vemail = localStorage.getItem('IMAccount') || ''
-  const vpass = 'chali22222'
-  if (vemail) {
+
+  const IMToken = getIMToken()
+  const IMUserID = getIMUserID()
+  if (IMToken && IMUserID) {
     try {
-      const { data: { chatToken, imToken, userID }, } = await login({
-        phoneNumber: '',
-        password: md5(vpass),
-        areaCode: "86",
-        verifyCode: "",
-        email: vemail,
-      })
-      setIMProfile({ chatToken, imToken, userID })
- 
-      if (!imToken || !userID) {
-        feedbackToast({ message: t('messageTip.loginFailed'), error: 'Invalid credentials' })
-        return
-      }
+      setIMProfile({ chatToken: '', imToken: IMToken, userID: IMUserID })
       const res = await IMSDK.login({
-        userID: userID!,
-        token: imToken!,
+        userID: IMUserID!,
+        token: IMToken!,
         apiAddr: getApiUrl(),
         wsAddr: getWsUrl(),
         platformID: 5,
         logLevel: Number(getLogLevel()),
       })
-      console.log('login res', res)
-      IMSDK.getLoginStatus().then((res) => {
-        if (res) {
-          router.push('/conversation')
-        }
-      })
+      console.log('查理login success', res)
+      initStore()
+      router.push('/conversation')
+      return
     } catch (error) {
       feedbackToast({ message: t('messageTip.loginFailed'), error })
     }
-    loading.value = false
-    router.push('/conversation')
-  } else {
+  } 
+  else {
     const timestampInMillis: number = +new Date();
     const date = new Date();
     const day: number = date.getDate();
@@ -71,8 +47,9 @@ const onchaliAuto = async () => {
     const minutes: number = date.getMinutes();
     const seconds: number = date.getSeconds();
     const invitationCode = 'LyvA69qG';
+    const vpass = 'chali22222'
     const vname = `访客${day}${hours}${minutes}${seconds}`
-    vemail = `wuchali${timestampInMillis}@163.com`
+    const vemail = `wuchali${timestampInMillis}@163.com`
     sendSms({
       phoneNumber: '',
       areaCode: '86',
@@ -88,6 +65,7 @@ const onchaliAuto = async () => {
       verifyCode: '666666',
       usedFor: UsedFor.Register
     })
+
     const res = register({
       verifyCode: '666666',
       deviceID: '',
@@ -105,10 +83,15 @@ const onchaliAuto = async () => {
       }
     })
     const data = await res.then(res => res.data)
-    if (data.userID === '' && data.imToken === '' && data.chatToken === '') {
-      localStorage.setItem('IMAccount', vemail);
-    }  
-
+    let chatToken = data.chatToken
+    let imToken = data.imToken
+    let userID = data.userID
+    localStorage.setItem('IMAccount', vemail)
+    localStorage.setItem('userID', userID)
+    localStorage.setItem('chatToken', chatToken)
+    localStorage.setItem('imToken', imToken)
+    localStorage.setItem('vpass', vpass)
+    console.log('register', data)
     try {
       const { data: { chatToken, imToken, userID }, } = await login({
         phoneNumber: '',
@@ -117,35 +100,18 @@ const onchaliAuto = async () => {
         verifyCode: "",
         email: vemail,
       })
-      setIMProfile({ chatToken, imToken, userID })
-      const resIm = await IMSDK.login({
-        userID: userID!,
-        token: imToken!,
-        apiAddr: getApiUrl(),
-        wsAddr: getWsUrl(),
-        platformID: 5,
-        logLevel: Number(getLogLevel()),
-      })
 
-      console.log('login res', resIm)
-      if (!resIm.data) {
-       IMSDK.getLoginStatus().then((resloginstatus) => {
-        if (!resloginstatus.data ) {
-          router.push('/conversation')
-        }else{
-          feedbackToast({ message:  t('messageTip.loginFailed'), error: "请刷新稍后再试" })
-        }
-      })
-      }else{
-        feedbackToast({ message:  t('messageTip.loginFailed'), error: "请刷新稍后再试" })
-      }
+      setIMProfile({ chatToken, imToken, userID })
+      router.push('/conversation')
     } catch (error) {
       feedbackToast({ message: t('messageTip.loginFailed'), error })
     }
     loading.value = false
   }
+
 }
 onMounted(() => {
+  // 因为 onchaliAuto 是异步的，直接调用即可
   onchaliAuto();
 });
 </script>
