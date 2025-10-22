@@ -28,7 +28,7 @@ const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const loadingStr = ref('正在初始化...')
-
+import { LoginStatus } from '@openim/wasm-client-sdk'
 
 const onchaliAuto = async () => {
 
@@ -111,26 +111,41 @@ const onchaliAuto = async () => {
       console.log('初始化 login', { chatToken, imToken, userID }) 
       setIMProfile({ chatToken, imToken, userID })
       localStorage.setItem('IMAccount', vemail)
-      router.push('/conversation')
+      // router.push('/conversation')
       // localStorage.setItem('userID', userID)
       // localStorage.setItem('chatToken', chatToken)
       // localStorage.setItem('imToken', imToken)
       // localStorage.setItem('vpass', vpass)
-      // loadingStr.value = '正在初始化 85%'
-      // await IMSDK.login({
-      //   userID: userID!,
-      //   token: imToken!,
-      //   apiAddr: getApiUrl(),
-      //   wsAddr: getWsUrl(),
-      //   platformID: 5,
-      //   logLevel: Number(getLogLevel()),
-      // })
-      // await IMSDK.getLoginStatus().then(res => {
-      //   loadingStr.value = '正在初始化 90%'
-      //   console.log('IMSDK.getLoginStatus', res)
-      //   initStore()
-      //   router.push('/conversation')
-      // })
+      loadingStr.value = '正在初始化 85%'
+      await IMSDK.login({
+        userID: userID!,
+        token: imToken!,
+        apiAddr: getApiUrl(),
+        wsAddr: getWsUrl(),
+        platformID: 5,
+        logLevel: Number(getLogLevel()),
+      })
+       loadingStr.value = '正在初始化 90%'
+      const { data } = await IMSDK.getLoginStatus()
+      if (data === LoginStatus.Logged) {
+          initStore()
+          loadingStr.value = '正在初始化 99%'
+          router.push('/conversation')
+      }
+      if (data !== LoginStatus.Logging) {
+       
+      }
+      if (data === LoginStatus.Logging) {
+        // const unLoginInterval = setInterval(async () => {
+        //   const { data } = await IMSDK.getLoginStatus()
+        //   if (data === LoginStatus.Logged) {
+        //     clearInterval(unLoginInterval)
+        //     loadingStr.value = '正在初始化 100%'
+        //     await initStore()
+        //     router.push('/conversation')
+        //   }
+        // }, 1000)
+      }
     }
     else {
       const { data: { chatToken, imToken, userID }, } = await login({

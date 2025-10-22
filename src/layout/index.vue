@@ -34,6 +34,7 @@ import {
 import { IMSDK, initStore } from '@/utils/imCommon'
 import useUserStore from '@/store/modules/user'
 import emitter from '@/utils/events'
+import { feedbackToast } from '@/utils/common'
 
 useGlobalEvent()
 const userStore = useUserStore()
@@ -45,7 +46,23 @@ const showProgress = computed(
 
 onMounted(() => {
   console.log('初始化 onMounted', 'onMounted layout index.vue')
-  loginCheck()
+  try {
+    IMSDK.getLoginStatus().then((res) => {
+      if (res.data === LoginStatus.Logout) {
+          tryLogin()
+          console.log('初始化 onMounted', 'Logout tryLogin')  
+      } else if (res.data === LoginStatus.Logging) {
+
+        console.log('初始化 onMounted', 'Logging Logging')
+      } else if (res.data === LoginStatus.Logged) {
+        console.log('初始化 onMounted', 'Logged initStore')  
+      }
+    })
+  } catch (error) {
+    feedbackToast({
+      message: '检测登录状态失败，请重新登录',
+    })
+  }
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -89,7 +106,7 @@ const tryLogin = async () => {
       logLevel: Number(getLogLevel()),
     })
     console.log('初始化 tryLogin error', 'IMSDK.login success')
-    initStore()
+    initStore()    
   } catch (error) {
     console.log('初始化 tryLogin error', error)
     router.push('/login')

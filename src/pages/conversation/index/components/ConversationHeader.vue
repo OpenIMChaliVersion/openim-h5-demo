@@ -113,12 +113,14 @@ const setConnectSuccess = () => (connectState.value = connectStateEnum.Success)
 const setConnectFailed = () => (connectState.value = connectStateEnum.Failed)
 
 onMounted(() => {
+  console.log('初始化 ConversationHeader onMounted')
   IMSDK.on(CbEvents.OnConnecting, setConnectLoading)
   IMSDK.on(CbEvents.OnConnectSuccess, setConnectSuccess)
   IMSDK.on(CbEvents.OnConnectFailed, setConnectFailed)
 })
 
 onBeforeUnmount(() => {
+  console.log('初始化 ConversationHeader onBeforeUnmount')
   IMSDK.off(CbEvents.OnConnecting, setConnectLoading)
   IMSDK.off(CbEvents.OnConnectSuccess, setConnectSuccess)
   IMSDK.off(CbEvents.OnConnectFailed, setConnectFailed)

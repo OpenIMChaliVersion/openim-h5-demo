@@ -546,20 +546,20 @@ export const formatMessageByType = (message: MessageItem): string => {
   }
 }
 
-export const initStore = () => {
+export const initStore = async () => {
   console.log('初始化 initStore')
   const userStore = useUserStore()
   const conversationStore = useConversationStore()
-  // const contactStore = useContactStore()
+  const contactStore = useContactStore()
  
   userStore.getSelfInfoFromReq()
   conversationStore.getUnReadCountFromReq()
   conversationStore.getConversationListFromReq()
-  // contactStore.getBlackListFromReq()
-  // contactStore.getRecvFriendApplicationListFromReq()
-  // contactStore.getSendFriendApplicationListFromReq()
-  // contactStore.getRecvGroupApplicationListFromReq()
-  // contactStore.getSendGroupApplicationListFromReq()
+  contactStore.getBlackListFromReq()
+  contactStore.getRecvFriendApplicationListFromReq()
+  contactStore.getSendFriendApplicationListFromReq()
+  contactStore.getRecvGroupApplicationListFromReq()
+  contactStore.getSendGroupApplicationListFromReq()
 
    console.log('初始化 initStore storeSelfInfo',userStore.storeSelfInfo)
    console.log('初始化 initStore userID',userStore.storeSelfInfo.userID)
