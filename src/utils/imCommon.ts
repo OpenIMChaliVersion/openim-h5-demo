@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import { sec2Time, secondsToTime } from './common'
 import { isThisYear } from 'date-fns'
 
-import useContactStore from '@store/modules/contact'
 import useConversationStore from '@store/modules/conversation'
 import useUserStore from '@store/modules/user'
 
@@ -550,21 +549,16 @@ export const initStore = async () => {
   console.log('初始化 initStore')
   const userStore = useUserStore()
   const conversationStore = useConversationStore()
-  const contactStore = useContactStore()
+  // const contactStore = useContactStore()
  
   userStore.getSelfInfoFromReq()
   conversationStore.getUnReadCountFromReq()
   conversationStore.getConversationListFromReq()
-  contactStore.getBlackListFromReq()
-  contactStore.getRecvFriendApplicationListFromReq()
-  contactStore.getSendFriendApplicationListFromReq()
-  contactStore.getRecvGroupApplicationListFromReq()
-  contactStore.getSendGroupApplicationListFromReq()
-
-   console.log('初始化 initStore storeSelfInfo',userStore.storeSelfInfo)
-   console.log('初始化 initStore userID',userStore.storeSelfInfo.userID)
-   console.log('初始化 initStore storeConversationList',conversationStore.storeConversationList)
-   console.log('初始化 initStore storeConversationList',conversationStore.storeConversationList)
+  // contactStore.getBlackListFromReq()
+  // contactStore.getRecvFriendApplicationListFromReq()
+  // contactStore.getSendFriendApplicationListFromReq()
+  // contactStore.getRecvGroupApplicationListFromReq()
+  // contactStore.getSendGroupApplicationListFromReq()
 
 }
 
