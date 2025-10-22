@@ -5,10 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { initializeAudio } from './utils/common'
 import { IMSDK } from '@/utils/imCommon'
 
-initializeAudio()
+// initializeAudio()
 
 document.addEventListener('contextmenu', function (event) {
   event.preventDefault()

@@ -201,9 +201,17 @@ OpenIM 为开发者提供开源即时通讯 SDK，作为 Twilio、Sendbird 等�
 2. 制作docker 镜像
 
    答：
-   第一步：创建Dockerfile
+   a. 创建Dockerfile
+   b. 制作images 文件
 ```
+ docker build -t openim-h5-demo:latest .
+```
+   c. 运行验证  文件
+```
+docker run -d -p 8111:80 --name openim-h5-app openim-h5-demo:latest
+```
+```
+ docker run -d --name openim-admin-front -p 11003:80 --network openim-docker_openim openim/openim-admin-front:latest
 
-```
-```
+docker run -d --name openim-mobile-front -p 11003:80 --network openim-docker_openim openim-h5-demo:latest
 ```

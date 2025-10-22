@@ -38,11 +38,9 @@ import { onClickOutside } from '@vueuse/core'
 import { ActionSheetAction, UploaderFileListItem, UploaderInstance } from 'vant'
 import useConversationStore from '@/store/modules/conversation'
 import { ChatFooterActionType } from '@/constants/action'
-import { useInviteRtc } from '@/hooks/useInviteRtc'
 import { SessionType } from '@openim/wasm-client-sdk'
 
 const { t } = useI18n()
-const { inviteRtc } = useInviteRtc()
 
 const isSingle = computed(
   () =>
@@ -76,11 +74,6 @@ const actionList = computed(() => {
       icon: image,
       type: ChatFooterActionType.Album,
     },
-    // {
-    //   text: t('rtc.video'),
-    //   icon: call,
-    //   type: ChatFooterActionType.VideoCall,
-    // },
   ]
 })
 
@@ -91,16 +84,6 @@ const albumActions = [
   },
 ] as unknown as ActionSheetAction[]
 
-const videoCallActions = [
-  {
-    name: t('rtc.voice'),
-    type: ChatFooterActionType.VoiceCall,
-  },
-  {
-    name: t('rtc.video'),
-    type: ChatFooterActionType.VideoCall,
-  },
-] as unknown as ActionSheetAction[]
 
 const conversationStore = useConversationStore()
 const emit = defineEmits<ChatFooterActionEmits>()
@@ -119,14 +102,6 @@ onClickOutside(target, () => emit('closeActionBar'), {
 })
 
 const onActionSelect = ({ type }: any, idx: number) => {
-  if (
-    type === ChatFooterActionType.VoiceCall ||
-    type === ChatFooterActionType.VideoCall
-  ) {
-    actionSheetVisible.value = false
-    inviteRtc(type, [conversationStore.currentConversation.userID])
-    return
-  }
   nextTick(() => uploaderRef.value?.chooseFile())
   actionSheetVisible.value = false
 }
@@ -136,10 +111,6 @@ const clickAction = ({ type }: ChatFooterActionItem) => {
   switch (type) {
     case ChatFooterActionType.Album:
       actionSheetActions.value = [...albumActions]
-      actionSheetVisible.value = true
-      break
-    case ChatFooterActionType.VideoCall:
-      actionSheetActions.value = [...videoCallActions]
       actionSheetVisible.value = true
       break
     default:
