@@ -7,7 +7,6 @@ import TabbarLayout from '@layout/index.vue'
 import GlobalWrap from '@layout/GlobalWrap.vue'
 import { IMSDK, initStore } from '@/utils/imCommon'
 import conversationRouters from './modules/conversation'
-import contactRouters from './modules/contact'
 import profileRouters from './modules/profile'
 import loginRouters from './modules/login'
 import { getIMToken, getIMUserID } from '@/utils/storage'
@@ -54,16 +53,6 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('@pages/conversation/index/index.vue'),
           },
           {
-            path: '/contact',
-            name: 'Contact',
-            component: () => import('@pages/contact/index/index.vue'),
-          },
-          {
-            path: '/workbench',
-            name: 'Workbench',
-            component: () => import('@pages/workbench/index/index.vue'),
-          },
-          {
             path: '/profile',
             name: 'Profile',
             component: () => import('@pages/profile/index/index.vue'),
@@ -74,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'Common',
         beforeEnter: loginCheck,
-        children: [...conversationRouters, ...contactRouters, ...profileRouters],
+        children: [...conversationRouters,...profileRouters],
       },
       ...loginRouters,
     ],
