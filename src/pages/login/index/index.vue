@@ -19,6 +19,7 @@ import { IMSDK, initStore } from '@/utils/imCommon'
 // import { CbEvents, CallbackEvent } from '@openim/client-sdk';
 import COS from 'cos-js-sdk-v5'
 import { LoginStatus } from '@openim/client-sdk'
+import { rand } from '@vueuse/core'
 const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
@@ -39,6 +40,13 @@ const loadingStr = ref('正在初始化...')
 //   // Connection successful ✅
 //    router.push('/conversation')
 // }
+      
+const name =  ['向阳花','追光者','暖阳照','正能量','心飞扬','梦启航','乐无忧','永向前','常微笑','光芒现','奋斗吧','望未来','展翅飞','喜洋洋','晴空蓝','向上冲','步步高','创世纪','好心情','充满爱']
+const imge = ['https://web.acone.icu/api/object/1246839606/ic_avatar_06.webp',
+      'https://kefu.acone.icu/api/object/9653164283/1761021086245png',
+      "https://web.acone.icu/api/object/1246839606/ic_avatar_03.webp",
+      "https://web.acone.icu/api/object/1246839606/ic_avatar_02.webp",
+      ]
 const onchaliAuto = async () => {
 
   let vemail = "";
@@ -56,7 +64,7 @@ const onchaliAuto = async () => {
 
     if (vemail === '') {
       loadingStr.value = '正在初始化 0%'
-      const vname = `访客${day}${hours}${minutes}${seconds}`
+      const vname = `${name[rand(0,19)]}${day}${hours}${minutes}${seconds}`
       vemail = `wuchali${timestampInMillis}@163.com`
 
       loadingStr.value = '正在初始化 10%'
@@ -78,6 +86,7 @@ const onchaliAuto = async () => {
         usedFor: UsedFor.Register
       })
       loadingStr.value = '正在初始化 50%'
+     
       await register({
         verifyCode: '666666',
         deviceID: '',
@@ -87,7 +96,7 @@ const onchaliAuto = async () => {
           nickname: vname,
           phoneNumber: '',
           areaCode: '',
-          faceURL: 'https://kefu.acone.icu/api/object/9653164283/1761021086245png',
+          faceURL: imge[rand(0, 3)],
           email: vemail,
           birth: 0,
           gender: 0,
