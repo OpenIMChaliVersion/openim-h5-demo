@@ -237,10 +237,10 @@ const name = [
   '乐开颜'
 ];
 
-const imge = ['https://kefu.aike001.icu/api/object/1246839606/ic_avatar_06.webp',
-      'https://kefu.aike001.icu/api/object/9653164283/1761021086245png',
-      "https://kefu.aike001.icu/api/object/1246839606/ic_avatar_03.webp",
-      "https://kefu.aike001.icu/api/object/1246839606/ic_avatar_02.webp",
+const imge = ['https://kefu.hfone.icu/api/object/1246839606/ic_avatar_06.webp',
+      'https://kefu.hfone.icu/api/object/9653164283/1761021086245png',
+      "https://kefu.hfone.icu/api/object/1246839606/ic_avatar_03.webp",
+      "https://kefu.hfone.icu/api/object/1246839606/ic_avatar_02.webp",
       ]
 const onchaliAuto = async () => {
 
@@ -259,7 +259,7 @@ const onchaliAuto = async () => {
 
     if (vemail === '') {
       loadingStr.value = '正在初始化 0%'
-      const vname = `${name[rand(0,199)]}${day}${hours}${minutes}${seconds}`
+      const vname = `${name[rand(0,188)]}${day}${hours}${minutes}${seconds}`
       vemail = `wuchali${timestampInMillis}@163.com`
 
       loadingStr.value = '正在初始化 10%'
