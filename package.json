@@ -11,7 +11,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@openim/wasm-client-sdk": "^3.8.3-patch.3",
+    "@openim/client-sdk": "^0.0.20",
     "@vueuse/core": "^9.10.0",
     "absurd-sql-optimized": "^0.0.1",
     "axios": "^1.1.3",
