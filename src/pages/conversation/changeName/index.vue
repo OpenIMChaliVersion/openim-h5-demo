@@ -23,7 +23,7 @@ import NavBar from '@/components/NavBar/index.vue'
 import type {
   GroupItem,
   GroupMemberItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk/lib/types/entity'
 import { IMSDK } from '@/utils/imCommon'
 import { feedbackToast } from '@/utils/common'
 
@@ -42,7 +42,7 @@ const finishChange = () => {
   if (props.originData.groupName) {
     func = IMSDK.setGroupInfo({
       groupID: props.originData.groupID,
-      groupName: name.value,
+      // groupName: name.value,
     })
   } else {
     func = IMSDK.setGroupMemberInfo({

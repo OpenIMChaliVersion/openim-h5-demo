@@ -111,31 +111,33 @@ const { copy } = useCopy()
 const uploaderRef = ref<UploaderInstance>()
 
 const afterReadFile = (data: UploaderFileListItem | UploaderFileListItem[]) => {
-  const fileData = Array.isArray(data) ? data[0] : data
-  const uploadToast = showLoadingToast({
-    message: t('uploading'),
-    forbidClick: true,
-    duration: 0,
-  })
-  IMSDK.uploadFile({
-    name: new Date().getTime() + getFileType(fileData.file?.name ?? ''),
-    contentType: fileData.file?.type!,
-    uuid: uuidV4(),
-    file: fileData.file as File,
-  })
-    .then((res) => {
-      IMSDK.setGroupInfo({
-        groupID: conversationStore.storeCurrentConversation.groupID,
-        faceURL: res.data.url,
-      }).finally(() => uploadToast.close())
-    })
-    .catch(() => {
-      uploadToast.message = t('messageTip.uploadFailed')
-      setTimeout(() => {
-        uploadToast.close()
-      }, 200)
-    })
-    .finally(() => uploadToast.close())
+   //TODO:
+  // const fileData = Array.isArray(data) ? data[0] : data
+  // const uploadToast = showLoadingToast({
+  //   message: t('uploading'),
+  //   forbidClick: true,
+  //   duration: 0,
+  // })
+  // IMSDK.uploadFile({
+  //   name: new Date().getTime() + getFileType(fileData.file?.name ?? ''),
+  //   contentType: fileData.file?.type!,
+  //   uuid: uuidV4(),
+  //   file: fileData.file as File,
+  // })
+  //   .then((res) => {
+      
+  //     IMSDK.setGroupInfo({
+  //       groupID: conversationStore.storeCurrentConversation.groupID,
+  //       faceURL: res.data.url,
+  //     }).finally(() => uploadToast.close())
+  //   })
+  //   .catch(() => {
+  //     uploadToast.message = t('messageTip.uploadFailed')
+  //     setTimeout(() => {
+  //       uploadToast.close()
+  //     }, 200)
+  //   })
+  //   .finally(() => uploadToast.close())
 }
 
 const chooseAvatar = () => {

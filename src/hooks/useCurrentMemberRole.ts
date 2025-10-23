@@ -1,5 +1,5 @@
 import useConversationStore from '@/store/modules/conversation'
-import { GroupMemberRole } from '@openim/wasm-client-sdk'
+import { GroupMemberRole } from '@openim/client-sdk'
 
 export default function useCurrentMemberRole(groupID?: string) {
   const conversationStore = useConversationStore()
@@ -17,7 +17,7 @@ export default function useCurrentMemberRole(groupID?: string) {
   )
 
   const isNomal = computed(
-    () => inSameGroup.value && currentRole.value === GroupMemberRole.Normal,
+    () => inSameGroup.value && currentRole.value === GroupMemberRole.Nomal,
   )
 
   const inSameGroup = computed(() => {

@@ -46,14 +46,14 @@
 import type {
   ConversationItem,
   MessageItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk/lib/types/entity'
 import Avatar from '@/components/Avatar/index.vue'
 import { formatConversionTime, getConversationContent } from '@/utils/imCommon'
 import {
   GroupAtType,
   MessageReceiveOptType,
   SessionType,
-} from '@openim/wasm-client-sdk'
+} from '@openim/client-sdk'
 import useConversationStore from '@/store/modules/conversation'
 import { GroupSessionTypes } from '@/constants/enum'
 
@@ -89,7 +89,7 @@ const messagePrefix = computed(() => {
   let prefix = ''
 
   if (
-    props.source?.recvMsgOpt !== MessageReceiveOptType.Normal &&
+    props.source?.recvMsgOpt !== MessageReceiveOptType.Nomal &&
     props.source.unreadCount > 0
   ) {
     prefix = t('pieces', { number: props.source.unreadCount })

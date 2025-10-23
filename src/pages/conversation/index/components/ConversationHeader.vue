@@ -64,8 +64,8 @@ import sync_error from '@assets/images/conversation/sync_error.png'
 import { PopoverAction } from 'vant'
 import useUserStore from '@/store/modules/user'
 import { IMSDK } from '@/utils/imCommon'
-import { CbEvents } from '@openim/wasm-client-sdk'
-import { GroupType } from '@openim/wasm-client-sdk'
+import { CbEvents } from '@openim/client-sdk'
+import { GroupType } from '@openim/client-sdk'
 
 enum ActionEnum {
   AddFriend,

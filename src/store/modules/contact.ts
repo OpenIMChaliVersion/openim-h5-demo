@@ -6,7 +6,7 @@ import type {
   FriendApplicationItem,
   GroupApplicationItem,
   GroupMemberItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk/lib/types/entity'
 import { defineStore } from 'pinia'
 import store from '../index'
 import { feedbackToast } from '@/utils/common'
@@ -14,6 +14,7 @@ import router from '@/router'
 import { BusinessUserInfo } from '@/api/data'
 import { i18nt } from '@/i18n'
 import { getBusinessInfo } from '@/api/user'
+import { OffsetParams } from '@openim/client-sdk/lib/types/params'
 
 interface StateType {
   friendList: FriendUserItem[]
@@ -128,7 +129,11 @@ const useStore = defineStore('contact', {
     },
     async getBlackListFromReq() {
       try {
-        const { data } = await IMSDK.getBlackList()
+        const secondPageParams: OffsetParams = {
+          offset: 10, // Skip the first 10 items (Page 1)
+          count: 10, // Get the next 10 items (Page 2)
+        }
+        const { data } = await IMSDK.getBlackList(secondPageParams)
         this.blackList = data
       } catch (error) {
         console.error(error)
@@ -151,7 +156,11 @@ const useStore = defineStore('contact', {
     },
     async getRecvFriendApplicationListFromReq() {
       try {
-        const { data } = await IMSDK.getFriendApplicationListAsRecipient()
+        const secondPageParams: OffsetParams = {
+          offset: 10, // Skip the first 10 items (Page 1)
+          count: 10, // Get the next 10 items (Page 2)
+        }
+        const { data } = await IMSDK.getFriendApplicationListAsRecipient(secondPageParams)
         this.recvFriendApplicationList = data
       } catch (error) {
         console.error(error)
@@ -178,7 +187,13 @@ const useStore = defineStore('contact', {
     },
     async getSendFriendApplicationListFromReq() {
       try {
-        const { data } = await IMSDK.getFriendApplicationListAsApplicant()
+        const secondPageParams: OffsetParams = {
+          offset: 10, // Skip the first 10 items (Page 1)
+          count: 10, // Get the next 10 items (Page 2)
+        }
+
+        const { data } =
+          await IMSDK.getFriendApplicationListAsApplicant(secondPageParams)
         this.sendFriendApplicationList = data
       } catch (error) {
         console.error(error)
@@ -204,7 +219,12 @@ const useStore = defineStore('contact', {
     },
     async getRecvGroupApplicationListFromReq() {
       try {
-        const { data } = await IMSDK.getGroupApplicationListAsRecipient()
+        const secondPageParams: OffsetParams = {
+          offset: 0, // Skip the first 10 items (Page 1)
+          count: 10, // Get the next 10 items (Page 2)
+        }
+        const { data } =
+          await IMSDK.getGroupApplicationListAsRecipient(secondPageParams)
         this.recvGroupApplicationList = data
       } catch (error) {
         console.error(error)
@@ -220,7 +240,7 @@ const useStore = defineStore('contact', {
     },
     pushNewRecvGroupApplication(item: GroupApplicationItem) {
       const idx = this.recvGroupApplicationList.findIndex(
-        (application) => application.userID === item.userID,
+        (application:GroupApplicationItem) => application.userID === item.userID,
       )
       if (idx > -1) {
         this.recvGroupApplicationList[idx] = { ...item }
@@ -230,7 +250,11 @@ const useStore = defineStore('contact', {
     },
     async getSendGroupApplicationListFromReq() {
       try {
-        const { data } = await IMSDK.getGroupApplicationListAsApplicant()
+        const secondPageParams: OffsetParams = {
+            offset: 0, // Skip the first 10 items (Page 1)
+            count: 10   // Get the next 10 items (Page 2)
+        };
+        const { data } = await IMSDK.getGroupApplicationListAsApplicant(secondPageParams)
         this.sendGroupApplicationList = data
       } catch (error) {
         console.error(error)
@@ -246,7 +270,7 @@ const useStore = defineStore('contact', {
     },
     pushNewSendGroupApplication(item: GroupApplicationItem) {
       const idx = this.sendGroupApplicationList.findIndex(
-        (application) => application.groupID === item.groupID,
+        (application:GroupApplicationItem) => application.groupID === item.groupID,
       )
       if (idx > -1) {
         this.sendGroupApplicationList[idx] = { ...item }
@@ -275,7 +299,7 @@ const useStore = defineStore('contact', {
     async getUserCardData(sourceID: string, groupID?: string) {
       let baseInfo: any
       let groupMemberInfo: GroupMemberItem | undefined
-      const friendInfo = this.storeFriendList.find((item) => item.userID === sourceID)
+      const friendInfo = this.storeFriendList.find((item:FriendUserItem) => item.userID === sourceID)
       if (friendInfo) {
         baseInfo = { ...baseInfo, ...friendInfo }
       } else {

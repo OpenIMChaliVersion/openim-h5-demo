@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { GroupMemberRole } from '@openim/wasm-client-sdk'
+import { GroupMemberRole } from '@openim/client-sdk'
 import { GenericListItemSource } from './data'
 import Avatar from '../Avatar/index.vue'
 

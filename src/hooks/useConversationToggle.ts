@@ -1,8 +1,8 @@
 import useConversationStore from '@/store/modules/conversation'
 import { feedbackToast } from '@/utils/common'
 import { IMSDK } from '@/utils/imCommon'
-import type { ConversationItem } from '@openim/wasm-client-sdk/lib/types/entity'
-import { SessionType } from '@openim/wasm-client-sdk'
+import type { ConversationItem } from '@openim/client-sdk/lib/types/entity'
+import { SessionType } from '@openim/client-sdk'
 
 export default function useConversationToggle() {
   const router = useRouter()

@@ -81,14 +81,14 @@ import type {
   GroupItem,
   MessageItem,
   PublicUserItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk/lib/types/entity'
 import { GenericListItemSource } from '@/components/GenericListItem/data'
 import { ContactChooseEnum } from './data'
 import useContactStore from '@/store/modules/contact'
 import { feedbackToast, formatContacts } from '@/utils/common'
 import { IMSDK } from '@/utils/imCommon'
 import useConversationStore from '@/store/modules/conversation'
-import { SessionType } from '@openim/wasm-client-sdk'
+import { SessionType } from '@openim/client-sdk'
 
 const { t } = useI18n()
 

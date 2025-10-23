@@ -15,10 +15,10 @@ document.addEventListener('contextmenu', function (event) {
 
 document.addEventListener('visibilitychange', function () {
   if (document.visibilityState === 'visible') {
-    IMSDK.setAppBackgroundStatus(false)
+    // IMSDK.setAppBackgroundStatus(false)
   }
   if (document.visibilityState === 'hidden') {
-    IMSDK.setAppBackgroundStatus(true)
+    // IMSDK.setAppBackgroundStatus(true)
   }
 })
 </script>

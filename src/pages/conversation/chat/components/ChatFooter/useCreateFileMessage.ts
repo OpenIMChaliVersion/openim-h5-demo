@@ -1,8 +1,8 @@
 import { getPicInfo } from '@/utils/common'
 import { v4 as uuidV4 } from 'uuid'
-import { MessageType } from '@openim/wasm-client-sdk'
+import { MessageType } from '@openim/client-sdk'
 import { IMSDK } from '@/utils/imCommon'
-import type { MessageItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
 
 export default function useCreateFileMessage() {
   const { t } = useI18n()

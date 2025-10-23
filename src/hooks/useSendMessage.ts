@@ -3,9 +3,9 @@ import useMessageStore, { ExMessageItem } from '@/store/modules/message'
 import useUserStore from '@/store/modules/user'
 import emitter from '@/utils/events'
 import { IMSDK } from '@/utils/imCommon'
-import type { MessageItem } from '@openim/wasm-client-sdk/lib/types/entity'
-import { MessageStatus } from '@openim/wasm-client-sdk'
-import { SendMsgParams } from '@openim/wasm-client-sdk/lib/types/params'
+import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
+import { MessageStatus } from '@openim/client-sdk'
+import { SendMsgParams } from '@openim/client-sdk/lib/types/params'
 
 const messageStore = useMessageStore()
 const conversationStore = useConversationStore()

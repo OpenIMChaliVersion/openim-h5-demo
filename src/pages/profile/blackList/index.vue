@@ -23,7 +23,7 @@
 import NavBar from '@/components/NavBar/index.vue'
 import VirtualList from '@components/VirtualList'
 import GenericListItem from '@/components/GenericListItem/index.vue'
-import type { BlackUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { BlackUserItem } from '@openim/client-sdk/lib/types/entity'
 import useContactStore from '@/store/modules/contact'
 import CommonEmpty from '@/components/CommonEmpty/index.vue'
 import { IMSDK } from '@/utils/imCommon'

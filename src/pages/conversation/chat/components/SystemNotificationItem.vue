@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { tipMessaggeFormat } from '@/utils/imCommon'
-import type { MessageItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
 
 type MessageItemProps = {
   source: MessageItem

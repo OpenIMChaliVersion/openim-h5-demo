@@ -41,7 +41,7 @@ import VirtualList from '@components/VirtualList'
 import useHistoryMessageList from '../useHistoryMessageList'
 import MessageItemVue from './MessageItem/MessageItem.vue'
 import SystemNotificationItem from './SystemNotificationItem.vue'
-import { MessageItem, MessageType } from '@openim/wasm-client-sdk'
+import { MessageItem, MessageType } from '@openim/client-sdk'
 import { TipTypes } from '@/constants/enum'
 
 const emit = defineEmits([])
@@ -56,7 +56,7 @@ const loadState = toRef(historyMessageState, 'loadState')
 const initLoading = toRef(historyMessageState, 'initLoading')
 
 const checkIsNotification = computed(() => (message: MessageItem) => {
-  if (message.contentType === MessageType.GroupInfoUpdated) {
+  if (message.contentType === MessageType.GroupNameUpdated) {
     let detail
     try {
       detail = JSON.parse(message.notificationElem?.detail!)

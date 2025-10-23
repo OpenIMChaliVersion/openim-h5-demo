@@ -11,7 +11,7 @@ import beCalled from '@/assets/audio/newMsg.mp3'
 
 // i18n
 import { i18n } from '@/i18n'
-import type { FriendUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { FriendUserItem } from '@openim/client-sdk/lib/types/entity'
 import { useClipboard } from '@vueuse/core'
 // @ts-ignore
 const { t } = i18n.global

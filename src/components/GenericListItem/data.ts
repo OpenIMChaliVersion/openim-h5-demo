@@ -4,7 +4,7 @@ import type {
   FriendUserItem,
   GroupItem,
   GroupMemberItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk/lib/types/entity'
 
 export type GenericListItemSource = FriendUserItem &
   GroupItem &

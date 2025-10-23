@@ -35,7 +35,7 @@ import CommonEmpty from '@/components/CommonEmpty/index.vue'
 import VirtualList from '@components/VirtualList'
 import AlphabetIndex from './AlphabetIndex.vue'
 import LetterSection from './LetterSection.vue'
-import type { FriendUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { FriendUserItem } from '@openim/client-sdk/lib/types/entity'
 import GenericListItem from '@/components/GenericListItem/index.vue'
 
 type IndexItem = {

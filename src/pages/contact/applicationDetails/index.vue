@@ -46,7 +46,7 @@ import {
   ApplicationItemSource,
   ApplicationTypeEnum,
 } from '@/components/ApplicationItem/data'
-import { GroupJoinSource } from '@openim/wasm-client-sdk'
+import { GroupJoinSource } from '@openim/client-sdk'
 import { IMSDK } from '@/utils/imCommon'
 import { feedbackToast } from '@/utils/common'
 import { closeToast, showLoadingToast } from 'vant'

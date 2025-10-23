@@ -1,8 +1,8 @@
 import useConversationStore from '@/store/modules/conversation'
 import { feedbackToast } from '@/utils/common'
 import { IMSDK } from '@/utils/imCommon'
-import { CbEvents } from '@openim/wasm-client-sdk'
-import type { GroupMemberItem, WSEvent } from '@openim/wasm-client-sdk/lib/types/entity'
+import { CbEvents,CallbackEvent } from '@openim/client-sdk'
+import type { GroupMemberItem} from '@openim/client-sdk/lib/types/entity'
 
 const conversationStore = useConversationStore()
 
@@ -50,7 +50,7 @@ export default function useGroupMemberList(groupID?: string, needRefresh = false
       .finally(() => (fetchState.loading = false))
   }
 
-  const groupMemberInfoChangedHandler = ({ data }: WSEvent<GroupMemberItem>) => {
+  const groupMemberInfoChangedHandler = ({ data }: CallbackEvent<GroupMemberItem>) => {
     const member = data
     if (member.groupID === fetchState.groupMemberList[0]?.groupID) {
       const idx = fetchState.groupMemberList.findIndex(

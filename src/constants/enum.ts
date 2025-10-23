@@ -1,4 +1,4 @@
-import { MessageType, SessionType } from '@openim/wasm-client-sdk'
+import { MessageType, SessionType } from '@openim/client-sdk'
 
 export const CustomMessageType = {
   Call: 100,
@@ -22,11 +22,11 @@ export enum RtcMessageStatus {
   HandleByOtherDevice,
 }
 
-export const GroupSessionTypes = [SessionType.Group, SessionType.WorkingGroup]
+export const GroupSessionTypes = [SessionType.Group, SessionType.Notification]
 
 export const GroupSystemMessageTypes = [
   MessageType.GroupCreated,
-  MessageType.GroupInfoUpdated,
+  // MessageType.GroupNameUpdated,
   MessageType.MemberQuit,
   MessageType.GroupOwnerTransferred,
   MessageType.MemberKicked,

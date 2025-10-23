@@ -90,7 +90,7 @@ import {
   GroupJoinSource,
   GroupMemberRole,
   SessionType,
-} from '@openim/wasm-client-sdk'
+} from '@openim/client-sdk'
 import dayjs from 'dayjs'
 import useUserStore from '@/store/modules/user'
 import useConversationStore from '@/store/modules/conversation'

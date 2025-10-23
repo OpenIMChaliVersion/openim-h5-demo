@@ -29,7 +29,7 @@ import {
   GroupStatus,
   MessageType,
   SessionType,
-} from '@openim/wasm-client-sdk'
+} from '@openim/client-sdk'
 import { showToast, UploaderFileListItem } from 'vant'
 import useSendMessage from '@/hooks/useSendMessage'
 import useConversationStore from '@/store/modules/conversation'
@@ -64,21 +64,22 @@ const isSingle = computed(
 )
 
 const getPlaceholder = computed(() => {
+
   const isMutedAll = conversationStore.currentGroupInfo.status === GroupStatus.Muted
   const roleLevel = conversationStore.storeCurrentMemberInGroup?.roleLevel
   if (!isSingle.value && isMutedAll) {
-    return roleLevel !== GroupMemberRole.Normal ? '' : t('placeholder.allMuted')
+    return roleLevel !== GroupMemberRole.Nomal ? '' : t('placeholder.allMuted')
   }
 
-  const isDismissed =
-    conversationStore.currentGroupInfo.status === GroupStatus.Dismissed
-  if (!isSingle.value && isDismissed) {
-    return t('placeholder.leaveGroup')
-  }
+  // const isDismissed =
+  //   conversationStore.currentGroupInfo.status === GroupStatus.Dismissed
+  // if (!isSingle.value && isDismissed) {
+  //   return t('placeholder.leaveGroup')
+  // }
 
-  if (!isSingle.value && !conversationStore.currentMemberInGroup?.roleLevel) {
-    return t('placeholder.leaveGroup')
-  }
+  // if (!isSingle.value && !conversationStore.currentMemberInGroup?.roleLevel) {
+  //   return t('placeholder.leaveGroup')
+  // }
 
   const isBlack = contactStore.storeBlackList.find(
     (black) => black.userID === conversationStore.storeCurrentConversation.userID,

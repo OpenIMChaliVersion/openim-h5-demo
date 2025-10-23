@@ -40,8 +40,8 @@ import GenericListItem from '@/components/GenericListItem/index.vue'
 import useContactStore from '@/store/modules/contact'
 import type {
   GroupItem,
-  SearchedFriendsInfo,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+  // SearchedFriendsInfo,
+} from '@openim/client-sdk'
 import CommonEmpty from '@/components/CommonEmpty/index.vue'
 import { IMSDK } from '@/utils/imCommon'
 import { feedbackToast } from '@/utils/common'
@@ -64,7 +64,7 @@ const conversationStore = useConversationStore()
 const router = useRouter()
 
 const searchState = reactive({
-  dataList: [] as Partial<GroupItem & SearchedFriendsInfo>[],
+  dataList: [] as Partial<GroupItem & FriendInfo>[],
   keyword: '',
   loading: false,
 })
@@ -73,25 +73,25 @@ const onSearch = () => {
   searchState.loading = true
   let func
   if (history.state.isGroup) {
-    func = IMSDK.searchGroups({
-      keywordList: [searchState.keyword],
-      isSearchGroupID: false,
-      isSearchGroupName: true,
-    })
+    // func = IMSDK.searchGroups({
+    //   keywordList: [searchState.keyword],
+    //   isSearchGroupID: false,
+    //   isSearchGroupName: true,
+    // })
   } else {
-    func = IMSDK.searchFriends({
-      keywordList: [searchState.keyword],
-      isSearchUserID: false,
-      isSearchNickname: true,
-      isSearchRemark: true,
-    })
+    // func = IMSDK.searchFriends({
+    //   keywordList: [searchState.keyword],
+    //   isSearchUserID: false,
+    //   isSearchNickname: true,
+    //   isSearchRemark: true,
+    // })
   }
-  func
-    .then(({ data }) => {
-      searchState.dataList = data
-    })
-    .catch((error) => feedbackToast({ error }))
-    .finally(() => (searchState.loading = false))
+  // func
+  //   .then(({ data }) => {
+  //     searchState.dataList = data
+  //   })
+  //   .catch((error) => feedbackToast({ error }))
+  //   .finally(() => (searchState.loading = false))
 }
 
 const itemClick = (item: any) => {

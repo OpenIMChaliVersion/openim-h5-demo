@@ -32,13 +32,11 @@
 
 <script setup lang="ts">
 import image from '@/assets/images/chatFooter/image.png'
-import call from '@/assets/images/chatFooter/call.png'
-
 import { onClickOutside } from '@vueuse/core'
 import { ActionSheetAction, UploaderFileListItem, UploaderInstance } from 'vant'
 import useConversationStore from '@/store/modules/conversation'
 import { ChatFooterActionType } from '@/constants/action'
-import { SessionType } from '@openim/wasm-client-sdk'
+import { SessionType } from '@openim/client-sdk'
 
 const { t } = useI18n()
 

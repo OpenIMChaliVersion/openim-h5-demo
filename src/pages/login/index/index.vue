@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import md5 from 'md5'
 import { login, register, sendSms, verifyCode } from '@/api/login'
+
 import { feedbackToast } from '@/utils/common'
 import { getApiUrl, getLogLevel, getWsUrl, setIMProfile } from '@/utils/storage'
 import { UsedFor } from '@/api/data'
@@ -19,6 +20,7 @@ const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const loadingStr = ref('正在初始化...')
+
 const onchaliAuto = async () => {
 
   let vemail = "";
@@ -86,6 +88,7 @@ const onchaliAuto = async () => {
       setIMProfile({ chatToken, imToken, userID })
       localStorage.setItem('IMAccount', vemail)
       loadingStr.value = '正在初始化 85%'
+      
       await IMSDK.login({
         userID: userID!,
         token: imToken!,
@@ -94,14 +97,16 @@ const onchaliAuto = async () => {
         platformID: 5,
         logLevel: Number(getLogLevel()),
       })
-      loadingStr.value = '正在初始化 86%'
-      const { data } = await IMSDK.getLoginStatus()
-    
-      if (data === 3) {
-          initStore()
-          loadingStr.value = '正在初始化 99%'
-          router.push('/conversation')
-      }
+      
+      router.push('/conversation')
+      // loadingStr.value = '正在初始化 86%'
+      // const { data } = await IMSDK.getLoginStatus()
+     
+      // if (data === 3) {
+      //     initStore()
+      //     loadingStr.value = '正在初始化 99%'
+      //     router.push('/conversation')
+      // }
     }
     else {
       const { data: { chatToken, imToken, userID }, } = await login({

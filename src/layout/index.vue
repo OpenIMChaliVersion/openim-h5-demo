@@ -21,7 +21,7 @@
 <script setup lang="ts" name="tabbar">
 import Tabbar from './Tabbar.vue'
 import useConversationStore from '@/store/modules/conversation'
-import { AllowType, LoginStatus } from '@openim/wasm-client-sdk'
+import { AllowType, LoginStatus } from '@openim/client-sdk'
 import useContactStore from '@/store/modules/contact'
 import { useGlobalEvent } from './useGlobalEvent'
 import {

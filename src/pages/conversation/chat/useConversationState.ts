@@ -1,7 +1,7 @@
 import { GroupSessionTypes } from '@/constants/enum'
 import useConversationStore from '@/store/modules/conversation'
 import { IMSDK } from '@/utils/imCommon'
-import type { ConversationItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { ConversationItem } from '@openim/client-sdk/lib/types/entity'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useThrottleFn } from '@vueuse/core'
 

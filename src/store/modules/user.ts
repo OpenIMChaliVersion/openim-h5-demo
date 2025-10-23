@@ -1,6 +1,6 @@
 import { IMSDK } from '@/utils/imCommon'
-import type { FriendUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
-import { MessageReceiveOptType } from '@openim/wasm-client-sdk'
+import type { FriendUserItem } from '@openim/client-sdk/lib/types/entity'
+import { MessageReceiveOptType } from '@openim/client-sdk'
 import { defineStore } from 'pinia'
 import store from '../index'
 import { BusinessUserInfo } from '@/api/data'

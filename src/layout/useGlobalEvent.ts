@@ -2,25 +2,26 @@ import useContactStore from '@store/modules/contact'
 import useConversationStore from '@store/modules/conversation'
 import useUserStore from '@store/modules/user'
 import { conversationSort, IMSDK } from '@/utils/imCommon'
-import { CbEvents } from '@openim/wasm-client-sdk'
+import { CbEvents, } from '@openim/client-sdk'
 import type {
   ConversationItem,
   GroupMemberItem,
   FriendApplicationItem,
   GroupApplicationItem,
-  WSEvent,
+  // CallbackEvent,
+  CallbackEvent,
   MessageItem,
   BlackUserItem,
   GroupItem,
   FriendUserItem,
   RevokedInfo,
   SelfUserInfo,
-} from '@openim/wasm-client-sdk/lib/types/entity'
+} from '@openim/client-sdk'
 import {
   MessageType,
   MessageReceiveOptType,
   SessionType,
-} from '@openim/wasm-client-sdk'
+} from '@openim/client-sdk'
 import useMessageStore, { ExMessageItem } from '@/store/modules/message'
 import emitter from '@/utils/events'
 import { useThrottleFn } from '@vueuse/core'
@@ -92,7 +93,7 @@ export function useGlobalEvent() {
     IMSDK.on(CbEvents.OnGroupApplicationRejected, groupApplicationProcessedHandler)
   }
 
-  const selfUpdateHandler = ({ data }: WSEvent<SelfUserInfo>) => {
+  const selfUpdateHandler = ({ data }: CallbackEvent<SelfUserInfo>) => {
     const imUserInfo = data
     userStore.updateSelfInfo({
       ...userStore.storeSelfInfo,
@@ -106,7 +107,7 @@ export function useGlobalEvent() {
     })
   }
   const connectingHandler = () => {}
-  const connectFailedHandler = ({ errCode }: WSEvent) => {
+  const connectFailedHandler = ({ errCode }: CallbackEvent<any>) => {
     if (errCode == 705) {
       tryOut(t('messageTip.loginExpiration'))
     }
@@ -126,7 +127,7 @@ export function useGlobalEvent() {
     })
 
   // sync
-  const syncStartHandler = ({ data }: WSEvent<boolean>) => {
+  const syncStartHandler = ({ data }: CallbackEvent<boolean>) => {
     userStore.isSyncing = true
     userStore.reinstall = data
   }
@@ -146,12 +147,12 @@ export function useGlobalEvent() {
     syncToast.close()
     syncToast = null
   }
-  const syncProgressHandler = ({ data }: WSEvent<number>) => {
+  const syncProgressHandler = ({ data }: CallbackEvent<number>) => {
     userStore.progress = data
   }
 
   // message
-  const newMessageHandler = ({ data }: WSEvent<ExMessageItem | ExMessageItem[]>) => {
+  const newMessageHandler = ({ data }: CallbackEvent<ExMessageItem | ExMessageItem[]>) => {
     if (syncToast) return
     const parsedData = data
     if (Array.isArray(parsedData)) {
@@ -187,7 +188,7 @@ export function useGlobalEvent() {
             newServerMsg.recvID === conversationStore.storeCurrentConversation.userID)
         )
       case SessionType.Group:
-      case SessionType.WorkingGroup:
+      // case SessionType.WorkingGroup:
         return (
           newServerMsg.groupID === conversationStore.storeCurrentConversation.groupID
         )
@@ -198,12 +199,12 @@ export function useGlobalEvent() {
     }
   }
   // conversation
-  const conversationChnageHandler = ({ data }: WSEvent<ConversationItem[]>) => {
+  const conversationChnageHandler = ({ data }: CallbackEvent<ConversationItem[]>) => {
     let filterArr: ConversationItem[] = []
     const changes = data
     const chids = changes.map((ch) => ch.conversationID)
     filterArr = conversationStore.storeConversationList.filter(
-      (tc) => !chids.includes(tc.conversationID),
+      (tc:ConversationItem) => !chids.includes(tc.conversationID),
     )
     const idx = changes.findIndex(
       (c) =>
@@ -213,17 +214,17 @@ export function useGlobalEvent() {
     const result = [...changes, ...filterArr]
     conversationStore.updateConversationList(conversationSort(result))
   }
-  const newConversationHandler = ({ data }: WSEvent<ConversationItem[]>) => {
+  const newConversationHandler = ({ data }: CallbackEvent<ConversationItem[]>) => {
     const news = data
     const result = [...news, ...conversationStore.storeConversationList]
     conversationStore.updateConversationList(conversationSort(result))
   }
-  const totalUnreadChangeHandler = ({ data }: WSEvent<number>) => {
+  const totalUnreadChangeHandler = ({ data }: CallbackEvent<number>) => {
     conversationStore.updateUnReadCount(data)
   }
 
   // friend
-  const friednInfoChangeHandler = ({ data }: WSEvent<FriendUserItem>) => {
+  const friednInfoChangeHandler = ({ data }: CallbackEvent<FriendUserItem>) => {
     if (data.userID === conversationStore.currentConversation?.userID) {
       messageStore.updateMessageNicknameAndFaceUrl({
         sendID: data.userID,
@@ -233,29 +234,29 @@ export function useGlobalEvent() {
     }
     contactStore.updateFriendList(data)
   }
-  const friednAddedHandler = ({ data }: WSEvent<FriendUserItem>) => {
+  const friednAddedHandler = ({ data }: CallbackEvent<FriendUserItem>) => {
     contactStore.pushNewFriend(data)
   }
-  const friednDeletedHandler = ({ data }: WSEvent<FriendUserItem>) => {
+  const friednDeletedHandler = ({ data }: CallbackEvent<FriendUserItem>) => {
     contactStore.updateFriendList(data, true)
   }
 
   // blacklist
-  const blackAddedHandler = ({ data }: WSEvent<BlackUserItem>) => {
+  const blackAddedHandler = ({ data }: CallbackEvent<BlackUserItem>) => {
     contactStore.pushNewBlack(data)
   }
-  const blackDeletedHandler = ({ data }: WSEvent<BlackUserItem>) => {
+  const blackDeletedHandler = ({ data }: CallbackEvent<BlackUserItem>) => {
     contactStore.updateBlackList(data, true)
   }
 
   // group
-  const joinedGroupAddedHandler = ({ data }: WSEvent<GroupItem>) => {
+  const joinedGroupAddedHandler = ({ data }: CallbackEvent<GroupItem>) => {
     if (data.groupID === conversationStore.currentConversation?.groupID) {
       conversationStore.updateCurrentGroupInfo(data)
     }
     contactStore.pushNewGroup(data)
   }
-  const joinedGroupDeletedHandler = ({ data }: WSEvent<GroupItem>) => {
+  const joinedGroupDeletedHandler = ({ data }: CallbackEvent<GroupItem>) => {
     if (data.groupID === conversationStore.currentConversation?.groupID) {
       conversationStore.updateCurrentGroupInfo(data)
       conversationStore.getCurrentGroupInfoFromReq(data.groupID)
@@ -263,12 +264,12 @@ export function useGlobalEvent() {
     }
     contactStore.updateGroupList(data, true)
   }
-  const joinedGroupDismissHandler = ({ data }: WSEvent<GroupItem>) => {
+  const joinedGroupDismissHandler = ({ data }: CallbackEvent<GroupItem>) => {
     if (data.groupID === conversationStore.currentConversation?.groupID) {
       conversationStore.getCurrentMemberInGroupFromReq(data.groupID)
     }
   }
-  const groupInfoChangedHandler = ({ data }: WSEvent<GroupItem>) => {
+  const groupInfoChangedHandler = ({ data }: CallbackEvent<GroupItem>) => {
     contactStore.updateGroupList(data)
     if (data.groupID === conversationStore.storeCurrentGroupInfo?.groupID) {
       conversationStore.updateCurrentGroupInfo(data)
@@ -276,7 +277,7 @@ export function useGlobalEvent() {
   }
   const groupMemberAddedHandler = () => {}
   const groupMemberDeletedHandler = () => {}
-  const groupMemberInfoChangedHandler = ({ data }: WSEvent<GroupMemberItem>) => {
+  const groupMemberInfoChangedHandler = ({ data }: CallbackEvent<GroupMemberItem>) => {
     if (data.groupID === conversationStore.storeCurrentMemberInGroup?.groupID) {
       if (data.userID === conversationStore.storeCurrentMemberInGroup?.userID) {
         conversationStore.updateCurrentMemberInGroup({ ...data })
@@ -291,7 +292,7 @@ export function useGlobalEvent() {
   }
 
   //application
-  const friendApplicationAddedHandler = ({ data }: WSEvent<FriendApplicationItem>) => {
+  const friendApplicationAddedHandler = ({ data }: CallbackEvent<FriendApplicationItem>) => {
     const application = data
     const isRecv = application.toUserID === userStore.storeSelfInfo.userID
     if (isRecv) {
@@ -302,7 +303,7 @@ export function useGlobalEvent() {
   }
   const friendApplicationProcessedHandler = ({
     data,
-  }: WSEvent<FriendApplicationItem>) => {
+  }: CallbackEvent<FriendApplicationItem>) => {
     const application = data
     const isRecv = application.toUserID === userStore.storeSelfInfo.userID
     if (isRecv) {
@@ -311,7 +312,7 @@ export function useGlobalEvent() {
       contactStore.updateSendFriendApplicationList(application)
     }
   }
-  const groupApplicationAddedHandler = ({ data }: WSEvent<GroupApplicationItem>) => {
+  const groupApplicationAddedHandler = ({ data }: CallbackEvent<GroupApplicationItem>) => {
     const application = data
     const isRecv = application.userID !== userStore.storeSelfInfo.userID
     if (isRecv) {
@@ -322,7 +323,7 @@ export function useGlobalEvent() {
   }
   const groupApplicationProcessedHandler = ({
     data,
-  }: WSEvent<GroupApplicationItem>) => {
+  }: CallbackEvent<GroupApplicationItem>) => {
     const application = data
     const isRecv = application.userID !== userStore.storeSelfInfo.userID
     if (isRecv) {
@@ -393,7 +394,7 @@ export function useGlobalEvent() {
       if (!userID) return
       const accessedFriendApplications = getAccessedFriendApplication()
       let unHandleFriendApplicationNum = newValue[0].filter(
-        (application) =>
+        (application:FriendApplicationItem) =>
           application.handleResult === 0 &&
           !accessedFriendApplications.includes(
             `${application.fromUserID}_${application.createTime}`,
@@ -402,7 +403,7 @@ export function useGlobalEvent() {
 
       const accessedGroupApplications = getAccessedGroupApplication()
       let unHandleGroupApplicationNum = newValue[1].filter(
-        (application) =>
+        (application:GroupApplicationItem) =>
           application.handleResult === 0 &&
           !accessedGroupApplications.includes(
             `${application.userID}_${application.createTime}`,

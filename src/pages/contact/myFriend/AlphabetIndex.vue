@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import useContactStore from '@/store/modules/contact'
 import { formatContacts } from '@/utils/common'
-import type { FriendUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { FriendUserItem } from '@openim/client-sdk/lib/types/entity'
 
 type IndexItem = {
   title: string

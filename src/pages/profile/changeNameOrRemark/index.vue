@@ -26,7 +26,7 @@ import { updateBusinessInfo } from '@/api/user'
 import useUserStore from '@/store/modules/user'
 import { feedbackToast } from '@/utils/common'
 import { IMSDK } from '@/utils/imCommon'
-import type { FriendUserItem } from '@openim/wasm-client-sdk/lib/types/entity'
+import type { FriendUserItem } from '@openim/client-sdk/lib/types/entity'
 
 const props = defineProps<{ friendInfo?: FriendUserItem }>()
 
@@ -42,22 +42,27 @@ const title = props.friendInfo ? t('remark') : t('updateNickName')
 const saveChange = () => {
   let func
   if (props.friendInfo) {
-    func = IMSDK.setFriendRemark({
-      toUserID: props.friendInfo.userID,
-      remark: value.value,
-    })
+    // func = IMSDK.setFriendRemark({
+    //   toUserID: props.friendInfo.userID,
+    //   // remark: value.value,
+    // })
+      func = IMSDK.updateFriends({
+        friendUserIDs: [props.friendInfo.userID],
+        remark: value.value,
+      })
   } else {
     func = updateBusinessInfo({
       nickname: value.value,
       userID: userStore.storeSelfInfo.userID,
     })
   }
+
   func
     .then(() => {
       userStore.getSelfInfoFromReq()
       feedbackToast({ message: t('messageTip.nomalSuccess'), onClose: router.back })
     })
-    .catch((error) => feedbackToast({ message: t('messageTip.nomalFailed'), error }))
+    .catch((error: any) => feedbackToast({ message: t('messageTip.nomalFailed'), error }))
 }
 </script>
 

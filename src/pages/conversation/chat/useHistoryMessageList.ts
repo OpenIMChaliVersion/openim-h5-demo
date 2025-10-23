@@ -2,7 +2,7 @@ import useConversationStore from '@/store/modules/conversation'
 import useMessageStore from '@/store/modules/message'
 import emitter from '@/utils/events'
 import { IMSDK } from '@/utils/imCommon'
-import { CbEvents, ViewType } from '@openim/wasm-client-sdk'
+import { CbEvents, ViewType } from '@openim/client-sdk'
 import { useThrottleFn } from '@vueuse/core'
 
 const messageStore = useMessageStore()
@@ -45,7 +45,7 @@ export default function useHistoryMessageList() {
       conversationID: conversationStore.storeCurrentConversation.conversationID,
       count: 20,
       startClientMsgID: messageStore.storeHistoryMessageList[0]?.clientMsgID ?? '',
-      viewType: ViewType.History
+      viewType: ViewType.ViewHistory
     })
     return data
   }

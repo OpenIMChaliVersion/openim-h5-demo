@@ -24,7 +24,7 @@ import NavBar from '@/components/NavBar/index.vue'
 import useConversationToggle from '@/hooks/useConversationToggle'
 import { feedbackToast } from '@/utils/common'
 import { IMSDK } from '@/utils/imCommon'
-import { GroupJoinSource, SessionType } from '@openim/wasm-client-sdk'
+import { GroupJoinSource, SessionType } from '@openim/client-sdk'
 
 type SendApplicationProps = {
   isGroup: Boolean

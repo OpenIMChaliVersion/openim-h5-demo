@@ -13,12 +13,18 @@ import updateLocale from 'dayjs/plugin/updateLocale'
 
 // i18n
 import { i18n } from '@/i18n'
+// import type {
+//   MessageItem,
+//   ConversationItem,
+//   PublicUserItem,
+// } from '@openim/wasm-client-sdk/lib/types/entity'
 import type {
   MessageItem,
   ConversationItem,
   PublicUserItem,
-} from '@openim/wasm-client-sdk/lib/types/entity'
-import { getSDK, MessageType } from '@openim/wasm-client-sdk'
+} from '@openim/client-sdk'
+// import { getSDK, MessageType } from '@openim/wasm-client-sdk'
+import { getSDK,MessageType,CbEvents, CallbackEvent} from '@openim/client-sdk';
 
 // @ts-ignore
 const { t } = i18n.global
@@ -48,10 +54,27 @@ dayjs.updateLocale('zh-cn', {
   },
 })
 
-export const IMSDK = getSDK({
-  coreWasmPath: './openIM.wasm',
-  sqlWasmPath: '/sql-wasm.wasm',
-})
+// export const IMSDK = getSDK({
+//   coreWasmPath: './openIM.wasm',
+//   sqlWasmPath: '/sql-wasm.wasm',
+// })
+export const IMSDK = getSDK();
+IMSDK.on(CbEvents.OnConnecting, handleConnecting);
+IMSDK.on(CbEvents.OnConnectFailed, handleConnectFailed);
+IMSDK.on(CbEvents.OnConnectSuccess, handleConnectSuccess);
+function handleConnecting() {
+  // Connecting...
+}
+
+function handleConnectFailed(data: CallbackEvent<null>) {
+  // Connection failed ❌
+  console.log(data.errCode, data.errMsg);
+}
+
+function handleConnectSuccess() {
+  // Connection successful ✅
+}
+
 
 export const tipMessaggeFormat = (msg: MessageItem) => {
   const userStore = useUserStore()
@@ -105,16 +128,16 @@ export const tipMessaggeFormat = (msg: MessageItem) => {
           name: getName(groupCreatedUser),
         }),
       })
-    case MessageType.GroupInfoUpdated:
-      const groupUpdateDetail = JSON.parse(msg.notificationElem?.detail!)
-      const groupUpdateUser = groupUpdateDetail.opUser
-      return t('notificationTipMessage.updateGroupAnnouncementMessage', {
-        operator: linkWrap({
-          userID: groupCreatedUser.userID,
-          groupID: msg.groupID,
-          name: getName(groupUpdateUser),
-        }),
-      })
+    // case MessageType.GroupInfoUpdated:
+    //   const groupUpdateDetail = JSON.parse(msg.notificationElem?.detail!)
+    //   const groupUpdateUser = groupUpdateDetail.opUser
+    //   return t('notificationTipMessage.updateGroupAnnouncementMessage', {
+    //     operator: linkWrap({
+    //       userID: groupCreatedUser.userID,
+    //       groupID: msg.groupID,
+    //       name: getName(groupUpdateUser),
+    //     }),
+    //   })
     case MessageType.GroupOwnerTransferred:
       const transferDetails = JSON.parse(msg.notificationElem?.detail!)
       const transferOpUser = transferDetails.opUser
@@ -475,7 +498,13 @@ export const formatMessageByType = (message: MessageItem): string => {
       return t('messageDescription.quitGroupMessage', {
         name: getName(quitUser),
       })
-    case MessageType.GroupInfoUpdated:
+    // case MessageType.GroupInfoUpdated:
+    //   const groupUpdateDetail = JSON.parse(message.notificationElem?.detail!)
+    //   const groupUpdateUser = groupUpdateDetail.opUser
+    //   return t('messageDescription.updateGroupInfoMessage', {
+    //     operator: getName(groupUpdateUser),
+    //   })
+    case MessageType.GroupNameUpdated:
       const groupUpdateDetail = JSON.parse(message.notificationElem?.detail!)
       const groupUpdateUser = groupUpdateDetail.opUser
       return t('messageDescription.updateGroupInfoMessage', {

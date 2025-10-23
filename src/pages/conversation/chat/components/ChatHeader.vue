@@ -30,7 +30,7 @@
 import arrows_left from '@/assets/images/chatHeader/arrows_left.png'
 import more from '@/assets/images/chatHeader/more.png'
 import useConversationStore from '@/store/modules/conversation'
-import { SessionType } from '@openim/wasm-client-sdk'
+import { SessionType } from '@openim/client-sdk'
 
 const router = useRouter()
 const conversationStore = useConversationStore()

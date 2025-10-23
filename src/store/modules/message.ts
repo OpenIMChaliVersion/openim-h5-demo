@@ -1,7 +1,7 @@
 import { feedbackToast } from '@utils/common'
 import { IMSDK } from '@/utils/imCommon'
-import type { MessageItem } from '@openim/wasm-client-sdk/lib/types/entity'
-import { GetAdvancedHistoryMsgParams } from '@openim/wasm-client-sdk/lib/types/params'
+import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
+import { GetAdvancedHistoryMsgParams } from '@openim/client-sdk/lib/types/params'
 import { defineStore } from 'pinia'
 import store from '../index'
 
