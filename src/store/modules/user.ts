@@ -10,6 +10,7 @@ import { clearIMProfile } from '@/utils/storage'
 import useContactStore from './contact'
 import useConversationStore from './conversation'
 import { i18nt } from '@/i18n'
+import { da } from 'date-fns/locale'
 
 export type FullSelfInfo = FriendUserItem & {
   globalRecvMsgOpt?: MessageReceiveOptType
@@ -39,7 +40,12 @@ const useStore = defineStore('user', {
     async getSelfInfoFromReq() {
       try {
         const { data } = await IMSDK.getSelfUserInfo()
+
+        console.log("getSelfUserInfo"+data)
+
         const res = await getBusinessInfo(data.userID)
+
+        
         const businessData = res.data.users[0] ?? {}
         filterEmptyValue(businessData as any)
         this.selfInfo = {

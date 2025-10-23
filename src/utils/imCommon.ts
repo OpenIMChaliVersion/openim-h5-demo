@@ -59,22 +59,6 @@ dayjs.updateLocale('zh-cn', {
 //   sqlWasmPath: '/sql-wasm.wasm',
 // })
 export const IMSDK = getSDK();
-IMSDK.on(CbEvents.OnConnecting, handleConnecting);
-IMSDK.on(CbEvents.OnConnectFailed, handleConnectFailed);
-IMSDK.on(CbEvents.OnConnectSuccess, handleConnectSuccess);
-function handleConnecting() {
-  // Connecting...
-}
-
-function handleConnectFailed(data: CallbackEvent<null>) {
-  // Connection failed ❌
-  console.log(data.errCode, data.errMsg);
-}
-
-function handleConnectSuccess() {
-  // Connection successful ✅
-}
-
 
 export const tipMessaggeFormat = (msg: MessageItem) => {
   const userStore = useUserStore()
@@ -574,7 +558,7 @@ export const formatMessageByType = (message: MessageItem): string => {
   }
 }
 
-export const initStore = async () => {
+export const initStore = () => {
   console.log('初始化 initStore')
   const userStore = useUserStore()
   const conversationStore = useConversationStore()

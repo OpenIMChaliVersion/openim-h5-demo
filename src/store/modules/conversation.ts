@@ -4,7 +4,7 @@ import type {
   GroupItem,
   GroupMemberItem,
   MessageItem,
-} from '@openim/client-sdk/lib/types/entity'
+} from '@openim/client-sdk'
 
 import { defineStore } from 'pinia'
 import store from '../index'

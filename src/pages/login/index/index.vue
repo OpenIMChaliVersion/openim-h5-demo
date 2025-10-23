@@ -13,14 +13,32 @@ import md5 from 'md5'
 import { login, register, sendSms, verifyCode } from '@/api/login'
 
 import { feedbackToast } from '@/utils/common'
-import { getApiUrl, getLogLevel, getWsUrl, setIMProfile } from '@/utils/storage'
+import { clearIMProfile, getApiUrl, getIMToken, getIMUserID, getLogLevel, getWsUrl, setIMProfile } from '@/utils/storage'
 import { UsedFor } from '@/api/data'
 import { IMSDK, initStore } from '@/utils/imCommon'
+// import { CbEvents, CallbackEvent } from '@openim/client-sdk';
+import COS from 'cos-js-sdk-v5'
+import { LoginStatus } from '@openim/client-sdk'
 const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const loadingStr = ref('正在初始化...')
+// function handleConnecting() {
+//   // Connecting...
+   
+// }
 
+// function handleConnectFailed({ errCode, errMsg }: CallbackEvent<any>) {
+//   // Connection failed ❌
+//   console.log(errCode, errMsg);
+//   IMSDK.forceReconnect()
+// }
+
+// function handleConnectSuccess() {
+//   // initStore()
+//   // Connection successful ✅
+//    router.push('/conversation')
+// }
 const onchaliAuto = async () => {
 
   let vemail = "";
@@ -60,7 +78,6 @@ const onchaliAuto = async () => {
         usedFor: UsedFor.Register
       })
       loadingStr.value = '正在初始化 50%'
-       
       await register({
         verifyCode: '666666',
         deviceID: '',
@@ -77,7 +94,6 @@ const onchaliAuto = async () => {
           password: md5(vpass),
         }
       })
-      loadingStr.value = '正在初始化 80%'
       const { data: { chatToken, imToken, userID }, } = await login({
         phoneNumber: '',
         password: md5(vpass),
@@ -85,10 +101,13 @@ const onchaliAuto = async () => {
         verifyCode: "",
         email: vemail,
       })
+  
+      console.log(chatToken)
+      console.log(imToken)
+      console.log(userID)
+      clearIMProfile()
       setIMProfile({ chatToken, imToken, userID })
       localStorage.setItem('IMAccount', vemail)
-      loadingStr.value = '正在初始化 85%'
-      
       await IMSDK.login({
         userID: userID!,
         token: imToken!,
@@ -97,12 +116,12 @@ const onchaliAuto = async () => {
         platformID: 5,
         logLevel: Number(getLogLevel()),
       })
-      
+      loadingStr.value = '正在初始化 86%'
+       initStore()
+      loadingStr.value = '正在初始化 99%'
       router.push('/conversation')
-      // loadingStr.value = '正在初始化 86%'
       // const { data } = await IMSDK.getLoginStatus()
-     
-      // if (data === 3) {
+      // if (data === LoginStatus.Logged) {
       //     initStore()
       //     loadingStr.value = '正在初始化 99%'
       //     router.push('/conversation')
@@ -117,18 +136,56 @@ const onchaliAuto = async () => {
         email: vemail,
       })
       setIMProfile({ chatToken, imToken, userID })
-      router.push('/conversation')
+      await IMSDK.login({
+        userID: userID!,
+        token: imToken!,
+        apiAddr: getApiUrl(),
+        wsAddr: getWsUrl(),
+        platformID: 5,
+        logLevel: Number(getLogLevel()),
+      })
+      loadingStr.value = '正在初始化 86%'
+      const { data } = await IMSDK.getLoginStatus()
+      if (data === LoginStatus.Logged) {
+          initStore()
+          loadingStr.value = '正在初始化 99%'
+          router.push('/conversation')
+      }
+      if (data === LoginStatus.Logging) {
+          initStore()
+          loadingStr.value = '正在初始化 99%'
+          router.push('/conversation')
+      }
+      if (data === LoginStatus.Logout) {
+      }
+      console.log("进入会话 登陆")
+     
       loading.value = false
     }
   } catch (error) {
-    router.push('/login')
-    feedbackToast({ message: t('messageTip.loginFailed'), error })
+    // router.push('/login')
+    // feedbackToast({ message: t('messageTip.loginFailed'), error })
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   // 因为 onchaliAuto 是异步的，直接调用即可
+  // IMSDK.on(CbEvents.OnConnecting, handleConnecting);
+  // IMSDK.on(CbEvents.OnConnectFailed, handleConnectFailed);
+  // IMSDK.on(CbEvents.OnConnectSuccess, handleConnectSuccess);
   onchaliAuto();
+  // const Itoken = getIMToken()
+  // const IMUserID = getIMUserID()
+  // const res =  await IMSDK.login({
+  //       userID: IMUserID!,
+  //       token: Itoken!,
+  //       apiAddr: getApiUrl(),
+  //       wsAddr: getWsUrl(),
+  //       platformID: 5,
+  //       logLevel: Number(getLogLevel()),
+  // })
+
+  // console.log(res)
 });
 </script>
 

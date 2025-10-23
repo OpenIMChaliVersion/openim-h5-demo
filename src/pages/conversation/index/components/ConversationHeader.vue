@@ -54,11 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import add_friend from '@/assets/images/conversation/add_friend.png'
-import add_group from '@/assets/images/conversation/add_group.png'
-import create_group from '@/assets/images/conversation/create_group.png'
-import Avatar from '@/components/Avatar/index.vue'
-import add from '@/assets/images/conversation/add.png'
+// import add_friend from '@/assets/images/conversation/add_friend.png'
+// import add_group from '@/assets/images/conversation/add_group.png'
+// import create_group from '@/assets/images/conversation/create_group.png'
+// import Avatar from '@/components/Avatar/index.vue'
+// import add from '@/assets/images/conversation/add.png'
 import loading from '@/assets/images/conversation/loading.png'
 import sync_error from '@assets/images/conversation/sync_error.png'
 import { PopoverAction } from 'vant'
@@ -66,7 +66,7 @@ import useUserStore from '@/store/modules/user'
 import { IMSDK } from '@/utils/imCommon'
 import { CbEvents } from '@openim/client-sdk'
 import { GroupType } from '@openim/client-sdk'
-
+import { getApiUrl, getIMToken, getIMUserID, getLogLevel, getWsUrl } from '@/utils/storage'
 enum ActionEnum {
   AddFriend,
   AddGroup,
@@ -81,26 +81,26 @@ enum connectStateEnum {
 
 const { t, locale } = useI18n()
 
-const conversationTopMoreActions: PopoverAction[] = [
-  {
-    text: t('addFriend'),
-    icon: add_friend,
-  },
-  {
-    text: t('addGroup'),
-    icon: add_group,
-  },
-  {
-    text: t('launchGroup'),
-    icon: create_group,
-  },
-]
+// const conversationTopMoreActions: PopoverAction[] = [
+//   {
+//     text: t('addFriend'),
+//     icon: add_friend,
+//   },
+//   {
+//     text: t('addGroup'),
+//     icon: add_group,
+//   },
+//   {
+//     text: t('launchGroup'),
+//     icon: create_group,
+//   },
+// ]
 
-watch(locale, () => {
-  conversationTopMoreActions[1].text = t('addFriend')
-  conversationTopMoreActions[2].text = t('addGroup')
-  conversationTopMoreActions[3].text = t('launchGroup')
-})
+// watch(locale, () => {
+//   conversationTopMoreActions[1].text = t('addFriend')
+//   conversationTopMoreActions[2].text = t('addGroup')
+//   conversationTopMoreActions[3].text = t('launchGroup')
+// })
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -110,8 +110,21 @@ const connectState = ref(connectStateEnum.Success)
 
 const setConnectLoading = () => (connectState.value = connectStateEnum.Loading)
 const setConnectSuccess = () => (connectState.value = connectStateEnum.Success)
-const setConnectFailed = () => (connectState.value = connectStateEnum.Failed)
-
+// const setConnectFailed = () => (connectState.value = connectStateEnum.Failed)
+function  setConnectFailed(){
+  connectState.value = connectStateEnum.Failed
+ 
+  
+  //  IMSDK.login({
+  //       userID: getIMUserID(),
+  //       token: getIMToken(),
+  //       apiAddr: getApiUrl(),
+  //       wsAddr: getWsUrl(),
+  //       platformID: 5,
+  //       logLevel: Number(getLogLevel()),
+  //  })
+  
+}
 onMounted(() => {
   console.log('初始化 ConversationHeader onMounted')
   IMSDK.on(CbEvents.OnConnecting, setConnectLoading)

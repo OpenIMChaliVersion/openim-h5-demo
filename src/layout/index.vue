@@ -49,13 +49,13 @@ onMounted(() => {
   try {
     IMSDK.getLoginStatus().then((res) => {
       if (res.data === LoginStatus.Logout) {
+
           tryLogin()
-          console.log('初始化 onMounted', 'Logout tryLogin')  
+          
       } else if (res.data === LoginStatus.Logging) {
 
-        console.log('初始化 onMounted', 'Logging Logging')
       } else if (res.data === LoginStatus.Logged) {
-        console.log('初始化 onMounted', 'Logged initStore')  
+     
       }
     })
   } catch (error) {
@@ -83,7 +83,6 @@ router.beforeEach(async (to, from, next) => {
 const loginCheck = () => {
   const IMToken = getIMToken()
   const IMUserID = getIMUserID()
-  console.log('初始化 loginCheck', IMToken, IMUserID)
   if (!IMToken || !IMUserID) {
     router.push('/login')
     console.log('初始化 onMounted', '!IMToken || !IMUserID')
