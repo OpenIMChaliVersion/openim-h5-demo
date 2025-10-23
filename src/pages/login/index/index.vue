@@ -237,10 +237,10 @@ const name = [
   '乐开颜'
 ];
 
-const imge = ['https://hao.acone.icu/api/object/1246839606/ic_avatar_06.webp',
-      'https://hao.acone.icu/api/object/9653164283/1761021086245png',
-      "https://hao.acone.icu/api/object/1246839606/ic_avatar_03.webp",
-      "https://hao.acone.icu/api/object/1246839606/ic_avatar_02.webp",
+const imge = ['https://kefu.aike001.icu/api/object/1246839606/ic_avatar_06.webp',
+      'https://kefu.aike001.icu/api/object/9653164283/1761021086245png',
+      "https://kefu.aike001.icu/api/object/1246839606/ic_avatar_03.webp",
+      "https://kefu.aike001.icu/api/object/1246839606/ic_avatar_02.webp",
       ]
 const onchaliAuto = async () => {
 
