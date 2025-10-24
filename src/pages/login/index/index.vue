@@ -246,16 +246,6 @@ const imge = ['https://kefu.aike002.icu/api/object/1801995308/ic_avatar_01.webp'
       "https://kefu.aike002.icu/api/object/1801995308/user.webp",
       "https://kefu.aike002.icu/api/object/1801995308/a2.webp",
       "https://kefu.aike002.icu/api/object/1801995308/a3.webp",
-      // "",
-      // "",
-      // "",
-      // "",
-      // "",
-      // "",
-      // "",
-      // "",
-      // "",
-      // ""
       ]
 const onchaliAuto = async () => {
 
