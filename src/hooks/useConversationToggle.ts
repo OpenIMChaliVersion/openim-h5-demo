@@ -40,7 +40,7 @@ export default function useConversationToggle() {
     const conversation = await getConversation(data)
     if (!conversation) return
     conversationStore.updateCurrentConversation({ ...conversation })
-    router.push('chat')
+    router.push('chatroom')
   }
 
   return {

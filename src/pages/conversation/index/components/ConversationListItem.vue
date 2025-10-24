@@ -121,7 +121,7 @@ const activePrefix = computed(
 
 const clickConversation = () => {
   conversationStore.updateCurrentConversation(props.source)
-  let path = 'chat'
+  let path = 'chatroom'
   if (props.source.conversationType === SessionType.Notification) {
     path = 'notifyMessageList'
   }
