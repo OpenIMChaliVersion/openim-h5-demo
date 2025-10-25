@@ -4,6 +4,7 @@ import { IMSDK } from '@/utils/imCommon'
 import type { ConversationItem } from '@openim/client-sdk/lib/types/entity'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useThrottleFn } from '@vueuse/core'
+import useContactStore from '@/store/modules/contact'
 
 export default function useConversationState() {
   const conversationStore = useConversationStore()
@@ -17,6 +18,7 @@ export default function useConversationState() {
     ) {
       conversationStore.getCurrentGroupInfoFromReq()
       conversationStore.getCurrentMemberInGroupFromReq()
+      conversationStore.fetchGroupMembers()
     }
   }
 

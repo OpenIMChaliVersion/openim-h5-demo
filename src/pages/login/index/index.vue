@@ -237,11 +237,16 @@ const name = [
   '乐开颜'
 ];
 
-const imge = ['https://hao.acone.icu/api/object/1246839606/ic_avatar_06.webp',
-      'https://hao.acone.icu/api/object/9653164283/1761021086245png',
-      "https://hao.acone.icu/api/object/1246839606/ic_avatar_03.webp",
-      "https://hao.acone.icu/api/object/1246839606/ic_avatar_02.webp",
-      ]
+const imge = ['https://kefu.hfone.icu/api/object/1801995308/ic_avatar_01.webp',
+      'https://kefu.hfone.icu/api/object/1801995308/ic_avatar_02.webp',
+      "https://kefu.hfone.icu/api/object/1801995308/ic_avatar_03.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/ic_avatar_04.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/ic_avatar_05.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/ic_avatar_06.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/user.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/a2.webp",
+      "https://kefu.hfone.icu/api/object/1801995308/a3.webp",]
+
 const onchaliAuto = async () => {
 
   let vemail = "";

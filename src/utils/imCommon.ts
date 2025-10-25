@@ -25,6 +25,7 @@ import type {
 } from '@openim/client-sdk'
 // import { getSDK, MessageType } from '@openim/wasm-client-sdk'
 import { getSDK,MessageType,CbEvents, CallbackEvent} from '@openim/client-sdk';
+import useContactStore from '@/store/modules/contact'
 
 // @ts-ignore
 const { t } = i18n.global
@@ -371,24 +372,38 @@ export const formatMessageByType = (message: MessageItem): string => {
   const getName = (user: PublicUserItem) => {
     return user.userID === selfUserID ? t('you') : user.nickname
   }
-
   switch (message.contentType) {
     case MessageType.TextMessage:
       return message.textElem?.content!
     case MessageType.AtTextMessage:
       let mstr = message.atTextElem?.text!
-      const pattern = /@\S+\s/g
-      const arr = mstr.match(pattern)
-      arr?.map((a) => {
-        const member = (message.atTextElem?.atUsersInfo ?? []).find(
-          (gm) => gm.atUserID === a.slice(1, -1),
-        )
-        if (member) {
-          const reg = new RegExp(a, 'g')
-          mstr = mstr.replace(reg, `@${member.groupNickname} `)
-        }
-      })
-      return mstr
+      let atUsersInfo = message.atTextElem?.atUsersInfo!
+      let atUsers = message.atTextElem?.atUserList
+      let replacedString = mstr
+      atUsersInfo?.forEach(member => {
+        const userID = member.atUserID;
+        const nickname = member.groupNickname;
+        // 构造替换目标：将 '@' + userID 替换为 '@' + nickname
+        const targetString = '@' + userID;
+        const replacementString = '@' + nickname;
+        // const regex = new RegExp(`@${userID}`, 'g');
+        const regex = new RegExp(`@${userID}\\b`, 'g');
+        replacedString = replacedString.replace(regex, replacementString);
+      });
+      console.log("最后的@消息"+replacedString)
+
+      // const pattern = /@\S+\s/g
+      // const arr = mstr.match(pattern)
+      // arr?.map((a) => {
+      //   const member = (message.atTextElem?.atUsersInfo ?? []).find(
+      //     (gm) => gm.atUserID === a.slice(1, -1),
+      //   )
+      //   if (member) {
+      //     const reg = new RegExp(a, 'g')
+      //     mstr = mstr.replace(reg, `@${member.groupNickname} `)
+      //   }
+      // })
+      return replacedString
     case MessageType.PictureMessage:
       return t('messageDescription.imageMessage')
     case MessageType.VideoMessage:
@@ -562,16 +577,16 @@ export const initStore = () => {
   console.log('初始化 initStore')
   const userStore = useUserStore()
   const conversationStore = useConversationStore()
-  // const contactStore = useContactStore()
+  const contactStore = useContactStore()
  
   userStore.getSelfInfoFromReq()
   conversationStore.getUnReadCountFromReq()
   conversationStore.getConversationListFromReq()
-  // contactStore.getBlackListFromReq()
-  // contactStore.getRecvFriendApplicationListFromReq()
-  // contactStore.getSendFriendApplicationListFromReq()
-  // contactStore.getRecvGroupApplicationListFromReq()
-  // contactStore.getSendGroupApplicationListFromReq()
+  contactStore.getBlackListFromReq()
+  contactStore.getRecvFriendApplicationListFromReq()
+  contactStore.getSendFriendApplicationListFromReq()
+  contactStore.getRecvGroupApplicationListFromReq()
+  contactStore.getSendGroupApplicationListFromReq()
 
 }
 

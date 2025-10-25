@@ -1,5 +1,6 @@
 <template>
   <div>
+     <UserTagList v-show="isAt" />
     <div v-if="getPlaceholder.length > 0" class="flex h-[54px] items-center justify-center bg-[#F0F2F6]">
       <span class="text-sm text-[#8E9AB0]">{{ getPlaceholder }}</span>
     </div>
@@ -23,6 +24,7 @@ import send from '@/assets/images/chatFooter/send.png'
 
 import CustomEdit from '@/components/CustomEdit/index.vue'
 import ChatFooterAction from './ChatFooterAction.vue'
+import UserTagList from './UserTagList.vue'
 import { onLongPress, useThrottleFn } from '@vueuse/core'
 import {
   GroupMemberRole,
@@ -40,7 +42,13 @@ import emitter from '@/utils/events'
 import { checkIsSafari } from '@/utils/common'
 import useCreateNomalMessage from './useCreateNomalMessage'
 import useCreateFileMessage from './useCreateFileMessage'
-
+import type {
+  ConversationItem,
+  GroupItem,
+  GroupMemberItem,
+  MessageItem,
+} from '@openim/client-sdk'
+import { storeToRefs } from 'pinia'
 const emit = defineEmits([])
 defineProps()
 
@@ -51,6 +59,8 @@ const { createFileMessage } = useCreateFileMessage()
 
 // message
 const messageContent = ref('')
+const atUserList = ref<GroupMemberItem[]>([])
+atUserList.value =  conversationStore.groupMember.filter(member => conversationStore.atUsers?.includes(member.userID))
 const inputRef = ref()
 
 const { switchNomalMessage } = useCreateNomalMessage({
@@ -103,8 +113,15 @@ const onFocusUpdate = (isFocus: boolean) => {
 
 const switchTextMessage = async () => {
   const message = await switchNomalMessage()
+  console.log("消息类型"+message?.contentType+"qweqw")
   if (message) {
-    sendMessage({ message })
+    console.log("消息类型"+message.contentType)
+    if(isAt.value){
+       sendMessage({ message,needOpreateMessage:isAt.value})
+    }else{
+      sendMessage({ message})
+    }
+    
   }
   resetState()
 }
@@ -113,8 +130,6 @@ const resetState = () => {
   messageContent.value = ''
   inputRef.value.clear()
 }
-
-
 // action bar
 const showActionBar = ref(false)
 const showEmojiBar = ref(false)
@@ -146,6 +161,7 @@ const getFile = async (uploadData: UploaderFileListItem) => {
     message,
   })
 }
+const { isAt } = storeToRefs(conversationStore)
 
 onMounted(() => {
   if (!inputRef.value) return

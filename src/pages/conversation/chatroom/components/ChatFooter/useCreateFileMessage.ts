@@ -34,12 +34,20 @@ export default function useCreateFileMessage() {
       sourcePath: '',
       file,
     }
+    var messageimg = await IMSDK.createImageMessageByFile(options)
+    console.log("图片消息体信息"+messageimg)
+    console.log("图片消息数据"+messageimg.data)
     return (await IMSDK.createImageMessageByFile(options)).data
   }
 
   const createFileMessage = async (file: File, messageType: MessageType) => {
     switch (messageType) {
       case MessageType.PictureMessage:
+        var messagefile =  await getImageMessage(file)
+        var messagebuffer = await getFileData(file)
+       
+        
+
         return {
           message: await getImageMessage(file),
           buffer: await getFileData(file),

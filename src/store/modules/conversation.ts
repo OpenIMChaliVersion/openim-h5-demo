@@ -17,6 +17,9 @@ interface StateType {
   unReadCount: number
   currentGroupInfo: GroupItem
   currentMemberInGroup?: GroupMemberItem
+  groupMember:GroupMemberItem[]
+  atUsers:string[]
+  isAt:boolean
 }
 
 const useStore = defineStore('conversation', {
@@ -26,6 +29,9 @@ const useStore = defineStore('conversation', {
     unReadCount: 0,
     currentGroupInfo: {} as GroupItem,
     currentMemberInGroup: {} as GroupMemberItem,
+    groupMember:[],
+    atUsers:[],
+    isAt:false
   }),
   getters: {
     storeConversationList: (state) => state.conversationList,
@@ -33,6 +39,8 @@ const useStore = defineStore('conversation', {
     storeUnReadCount: (state) => state.unReadCount,
     storeCurrentGroupInfo: (state) => state.currentGroupInfo,
     storeCurrentMemberInGroup: (state) => state.currentMemberInGroup,
+    storeCurrentMemberGroup:(state) => state.groupMember,
+    storeAtCurrentConversation:(state) => state.atUsers,
   },
   actions: {
     async getConversationListFromReq(isScrollLoad = false): Promise<boolean> {
@@ -101,12 +109,67 @@ const useStore = defineStore('conversation', {
     updateConversationList(list: ConversationItem[]) {
       this.conversationList = [...list]
     },
+    async fetchGroupMembers(groupID?: string): Promise<GroupMemberItem[]> {
+        try {
+            let offset = 0
+            const count = 100 // 分页大小
+            let tmpList: GroupMemberItem[] = []
+            
+            while (true) {
+                // 调用 SDK 接口获取群成员列表
+                const { data } = await IMSDK.getGroupMemberList({
+                    groupID: groupID ?? this.currentConversation.groupID,
+                    filter: 0, // 成员类型过滤，通常 0 表示所有成员
+                    offset: offset,
+                    count: count,
+                })
+
+                tmpList = [...tmpList, ...data]
+                offset += count
+
+                if (data.length < count) break
+            }
+            this.groupMember = tmpList
+            return tmpList
+        } catch (error) {
+            console.error(`Failed to fetch group members for group ${groupID}:`, error)
+            this.groupMember = []
+            return []
+        }
+    },
+    atinfo(sendID?:string){
+      const userStore = useUserStore()
+      // 确定要添加的 ID
+      const idToAdd = sendID ?? userStore.storeSelfInfo.userID
+      // this.atUsers.push(idToAdd)
+      if (this.atUsers.length == 0) {
+        // console.log(sendID)
+        this.atUsers.push(idToAdd)
+      } else {
+        if (!this.atUsers.includes(idToAdd)) {
+          this.atUsers.push(idToAdd)
+        }
+      }
+      this.isAt = this.atUsers.length > 0 ? true : false   
+      console.log("当前@数据"+this.atUsers.length)               
+    },
+    deleteAtinfo(sendID:string){
+        
+       this.atUsers = this.atUsers.filter(color => color !== sendID);
+       console.log("删除后 当前@数据"+this.atUsers.length) 
+       this.isAt = this.atUsers.length > 0 ? true : false   
+    },
+    clearAtStore(){
+      this.atUsers =[]
+    },
     clearConversationStore() {
       this.conversationList = []
       this.currentConversation = {} as ConversationItem
       this.unReadCount = 0
       this.currentGroupInfo = {} as GroupItem
       this.currentMemberInGroup = {} as GroupMemberItem
+      this.groupMember = [] 
+      this.atUsers = []
     },
   },
 })

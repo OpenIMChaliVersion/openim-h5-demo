@@ -39,6 +39,8 @@
 import Avatar from '@/components/Avatar/index.vue'
 import TextMessageRenderer from './TextMessageRenderer.vue'
 import MediaMessageRenderer from './MediaMessageRenderer.vue'
+import QuoteMessageRendever from './QuoteMessageRendever.vue'
+import AtTextMessageRendever from './AtTextMessageRendever.vue'
 import CatchMsgRenderer from './CatchMsgRenderer.vue'
 import { MessageType, SessionType } from '@openim/client-sdk'
 import useUserStore from '@/store/modules/user'
@@ -74,16 +76,28 @@ const getRenderComp = computed(() => {
       return TextMessageRenderer
     case MessageType.PictureMessage:
       return MediaMessageRenderer
+    case MessageType.AtTextMessage:
+      console.log("来了一条@消息"+props.source.atTextElem?.text)
+      return AtTextMessageRendever
+    case MessageType.QuoteMessage:
+      return QuoteMessageRendever
+    case MessageType.MergeMessage:
+      return TextMessageRenderer
     default:
       return CatchMsgRenderer
   }
 })
 
 const toDetails = async (e: Event) => {
+  console.log("@"+props.source.senderNickname)
+  console.log("@"+props.source.sendID)
+
   e.preventDefault()
   if(!isSing.value) {
+    conversationStore.atinfo(props.source.sendID)
     return
   }
+  
   e.stopPropagation()
   contactStore.getUserCardData(props.source.sendID, props.source.groupID)
 }

@@ -27,6 +27,7 @@ interface StateType {
   unHandleFriendApplicationNum: number
   unHandleGroupApplicationNum: number
   userCardData: UserCardData
+  groupMember:GroupMemberItem[]
 }
 
 export interface UserCardData {
@@ -46,6 +47,7 @@ const useStore = defineStore('contact', {
     unHandleFriendApplicationNum: 0,
     unHandleGroupApplicationNum: 0,
     userCardData: {},
+    groupMember:[]
   }),
   getters: {
     storeFriendList: (store) => store.friendList,
@@ -58,6 +60,7 @@ const useStore = defineStore('contact', {
     storeUnHandleFriendApplicationNum: (store) => +store.unHandleFriendApplicationNum,
     storeUnHandleGroupApplicationNum: (store) => store.unHandleGroupApplicationNum,
     storeUserCardData: (store) => store.userCardData,
+    storeUsergroupMember:(store) => store.groupMember,
   },
   actions: {
     async getFriendListFromReq() {
@@ -339,7 +342,50 @@ const useStore = defineStore('contact', {
       this.unHandleFriendApplicationNum = 0
       this.unHandleGroupApplicationNum = 0
       this.userCardData = {}
+      this.groupMember = []
     },
+    clearGroupMember(){
+      this.groupMember = []
+    },
+    async fetchGroupMembers(groupID: string): Promise<GroupMemberItem[]> {
+        try {
+            let offset = 0
+            const count = 100 // 分页大小
+            let tmpList: GroupMemberItem[] = []
+            
+            while (true) {
+                // 调用 SDK 接口获取群成员列表
+                const { data } = await IMSDK.getGroupMemberList({
+                    groupID: groupID,
+                    filter: 0, // 成员类型过滤，通常 0 表示所有成员
+                    offset: offset,
+                    count: count,
+                })
+
+                tmpList = [...tmpList, ...data]
+                offset += count
+
+                if (data.length < count) break
+            }
+            return tmpList
+        } catch (error) {
+            console.error(`Failed to fetch group members for group ${groupID}:`, error)
+            return []
+        }
+    },
+    async getSpecialGroupMembers(groupID: string,useIDlist:[string]): Promise<GroupMemberItem[]> {
+        try {
+            let offset = 0
+            const count = 100 // 分页大小
+            let tmpList: GroupMemberItem[] = []
+            const {data} = await IMSDK.getSpecifiedGroupMembersInfo({groupID:groupID,userIDList:useIDlist})
+            console.log("指定的群成员信息"+data)
+            return tmpList
+        } catch (error) {
+            console.error(`Failed to fetch group members for group ${groupID}:`, error)
+            return []
+        }
+    }
   },
 })
 

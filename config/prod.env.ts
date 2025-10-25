@@ -1,4 +1,4 @@
-const BASE_DOMAIN = 'hao.acone.icu'
+const BASE_DOMAIN = 'kefu.hfone.icu'
 const CHAT_URL = `https://${BASE_DOMAIN}/chat`
 const API_URL = `https://${BASE_DOMAIN}/api`
 const WS_URL = `wss://${BASE_DOMAIN}/msg_gateway`

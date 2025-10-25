@@ -23,8 +23,11 @@ export default function useSendMessage() {
     message,
     needOpreateMessage,
   }: SendMessageParams) => {
-    needOpreateMessage = needOpreateMessage ?? inCurrentConversation(recvID || groupID)
+     console.log("发送消息A")
 
+    needOpreateMessage = needOpreateMessage ?? inCurrentConversation(recvID || groupID)
+    
+    console.log("发送消息B")
     if (needOpreateMessage) {
       messageStore.pushNewMessage(message)
       emitter.emit('CHAT_MAIN_SCROLL_TO_BOTTOM', false)
