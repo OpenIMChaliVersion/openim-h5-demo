@@ -1,8 +1,9 @@
-import { getPicInfo } from '@/utils/common'
+import { feedbackToast, getPicInfo } from '@/utils/common'
 import { v4 as uuidV4 } from 'uuid'
 import { MessageType } from '@openim/client-sdk'
 import { IMSDK } from '@/utils/imCommon'
 import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
+import { showFailToast } from 'vant'
 
 export default function useCreateFileMessage() {
   const { t } = useI18n()
@@ -37,17 +38,30 @@ export default function useCreateFileMessage() {
     var messageimg = await IMSDK.createImageMessageByFile(options)
     console.log("图片消息体信息"+messageimg)
     console.log("图片消息数据"+messageimg.data)
-    return (await IMSDK.createImageMessageByFile(options)).data
+    if (messageimg.errCode == 0) {
+      console.log("a1")
+      return messageimg.data
+    } else {
+      var messageimg = await IMSDK.createImageMessageByFile(options)
+      if (messageimg.errCode == 0) {
+        console.log("a2")
+        return messageimg.data
+      } else {
+        var messageimg = await IMSDK.createImageMessageByFile(options)
+        if (messageimg.errCode == 0) {
+          console.log("a3")
+          return messageimg.data
+        } else {
+          console.log("a0")
+          return (await IMSDK.createImageMessageByFile(options)).data
+        }
+      }
+    }
   }
 
   const createFileMessage = async (file: File, messageType: MessageType) => {
     switch (messageType) {
       case MessageType.PictureMessage:
-        var messagefile =  await getImageMessage(file)
-        var messagebuffer = await getFileData(file)
-       
-        
-
         return {
           message: await getImageMessage(file),
           buffer: await getFileData(file),
