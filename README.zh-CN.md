@@ -80,7 +80,7 @@
 docker run -d -p 8111:80 --name openim-h5-app openim-h5-demo:latest
 ```
 ```
- docker run -d --name openim-admin-front -p 11003:80 --network openim-docker_openim openim/openim-admin-front:latest
+ docker run -d --name openim-admin-front -p 11002:80 --network openim-docker_openim openim/openim-admin-front:latest
 
 docker run -d --name openim-mobile-front -p 11003:80 --network openim-docker_openim openim-h5-demo:latest
 ```
