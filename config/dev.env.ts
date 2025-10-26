@@ -2,13 +2,12 @@
 // const CHAT_URL = `http://${BASE_DOMAIN}:10008`
 // const API_URL = `http://${BASE_DOMAIN}:10002`
 // const WS_URL = `ws://${BASE_DOMAIN}:10001`
-const BASE_DOMAIN = '__BASE_DOMAIN_PLACEHOLDER__'
+const BASE_DOMAIN = 'kefu.acstudy.icu'
 const CHAT_URL = `https://${BASE_DOMAIN}/chat`
 const API_URL = `https://${BASE_DOMAIN}/api`
 const WS_URL = `wss://${BASE_DOMAIN}/msg_gateway`
 export default {
   NODE_ENV: 'development',
-  BASE_DOMAIN,
   CHAT_URL,
   API_URL,
   WS_URL,
