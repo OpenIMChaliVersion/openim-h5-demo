@@ -87,5 +87,40 @@ docker run -d --name openim-mobile-front -p 11003:80 --network openim-docker_ope
 
 3. 动态替换域名
 ```
+docker run -d \
+  -p 80:80 \
+  --name my-app-prod \
+  \
+  # 1. 注入动态域名 (作为环境变量)
+  -e BASE_DOMAIN="api.your-production-domain.com" \
+  \
+  # 2. 注入动态头像列表文件 (通过卷挂载)
+  # 🚨 确保宿主机路径存在该文件，并且内容是合法的 JS 数组字符串
+  -v /path/to/your/config/my_avatars.txt:/etc/config/avatar_urls.txt \
+  \
+  openim-h5-demo:1.0
+```
+实际上 
+第二个域名
+编译
+```
+ docker build -t openim-h5-stage:latest .
+```
+运行
+```
+docker run -d -p 11004:80  -e BASE_DOMAIN="hao.acstudy.icu"   -v "$(pwd)/my_avatars.txt":/etc/config/avatar_urls.txt   openim-h5-stage:latest
+
+```
+证书文件自己生成 上传
+```
+cp -r /www/wwwroot/hao.domain.icu_nginx/*  /etc/nginx/ssl/  
+
+```
+
+```
+
+```
+第三个域名
+```
 
 ```
