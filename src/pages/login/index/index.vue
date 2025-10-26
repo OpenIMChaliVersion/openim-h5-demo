@@ -301,7 +301,7 @@ const onchaliAuto = async () => {
           nickname: vname,
           phoneNumber: '',
           areaCode: '',
-          faceURL: imge[rand(0, 3)],
+          faceURL: imge[rand(0, 6)],
           email: vemail,
           birth: 0,
           gender: 0,
