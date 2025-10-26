@@ -27,9 +27,11 @@ RUN npm run build
 # 使用轻量级的 Nginx 镜像来托管静态文件
 # ==========================================================
 FROM nginx:alpine
-
+COPY entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 # 复制 Nginx 配置文件 (可选: 如果你需要自定义配置，例如设置反向代理、路由规则)
 # 如果项目没有提供自定义 Nginx 配置，可以跳过或使用默认配置
+ENTRYPOINT ["/docker-entrypoint.sh"]
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 从构建阶段复制最终的静态文件 (dist 目录的内容) 到 Nginx 的默认网页目录
