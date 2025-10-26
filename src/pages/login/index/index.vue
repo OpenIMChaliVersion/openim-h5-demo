@@ -242,13 +242,13 @@ const name = [
 //       "https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_03.webp",
 //       "https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_02.webp"]
 
-const imge = ['https://web.kfhao.icu/api/object/1801995308/ic_avatar_01.webp',
-      'https://web.kfhao.icu/api/object/1801995308/ic_avatar_02.webp',
-      "https://kefu.acstudy.icu/api/object/1801995308/ic_avatar_03.webp",
-      "https://kefu.acstudy.icu/api/object/1801995308/ic_avatar_04.webp",
-      "https://kefu.acstudy.icu/api/object/1801995308/ic_avatar_05.webp",
-      "https://kefu.acstudy.icu/api/object/1801995308/ic_avatar_06.webp",
-      "https://kefu.acstudy.icu/api/object/1801995308/user.webp",
+const imge = ['https://web.acstudy.icu/api/object/1801995308/ic_avatar_01.webp',
+      'https://web.acstudy.icu/api/object/1801995308/ic_avatar_02.webp',
+      "https://web.acstudy.icu/api/object/1801995308/ic_avatar_03.webp",
+      "https://web.acstudy.icu/api/object/1801995308/ic_avatar_04.webp",
+      "https://web.acstudy.icu/api/object/1801995308/ic_avatar_05.webp",
+      "https://web.acstudy.icu/api/object/1801995308/ic_avatar_06.webp",
+      "https://web.acstudy.icu/api/object/1801995308/user.webp",
 ]
 
 
