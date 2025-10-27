@@ -1,4 +1,4 @@
-const BASE_DOMAIN = 'kefu.acedu.icu'
+const BASE_DOMAIN = 'kefu.kfhao.icu'
 const CHAT_URL = `https://${BASE_DOMAIN}/chat`
 const API_URL = `https://${BASE_DOMAIN}/api`
 const WS_URL = `wss://${BASE_DOMAIN}/msg_gateway`

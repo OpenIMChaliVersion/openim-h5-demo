@@ -243,13 +243,13 @@ const name = [
 //       "https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_02.webp"]
 
 const imge =[  
-      'https://web.acedu.icu/api/object/3158674023/ic_avatar_01.webp',
-      'https://web.acedu.icu/api/object/3158674023/ic_avatar_02.webp',
-      "https://web.acedu.icu/api/object/3158674023/ic_avatar_03.webp",
-      "https://web.acedu.icu/api/object/3158674023/ic_avatar_04.webp",
-      "https://web.acedu.icu/api/object/3158674023/ic_avatar_05.webp",
-      "https://web.acedu.icu/api/object/3158674023/ic_avatar_06.webp",
-      "https://web.acedu.icu/api/object/3158674023/user.webp",
+      'https://web.kfhao.icu/api/object/3158674023/ic_avatar_01.webp',
+      'https://web.kfhao.icu/api/object/3158674023/ic_avatar_02.webp',
+      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_03.webp",
+      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_04.webp",
+      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_05.webp",
+      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_06.webp",
+      "https://web.kfhao.icu/api/object/3158674023/user.webp",
 ]
 
 const onchaliAuto = async () => {
