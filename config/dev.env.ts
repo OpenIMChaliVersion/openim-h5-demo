@@ -1,7 +1,3 @@
-// const BASE_DOMAIN = '43.160.198.172'
-// const CHAT_URL = `http://${BASE_DOMAIN}:10008`
-// const API_URL = `http://${BASE_DOMAIN}:10002`
-// const WS_URL = `ws://${BASE_DOMAIN}:10001`
 const BASE_DOMAIN = 'kefu.kfhao.icu'
 const CHAT_URL = `https://${BASE_DOMAIN}/chat`
 const API_URL = `https://${BASE_DOMAIN}/api`

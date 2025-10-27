@@ -20,26 +20,11 @@ import { IMSDK, initStore } from '@/utils/imCommon'
 import COS from 'cos-js-sdk-v5'
 import { LoginStatus } from '@openim/client-sdk'
 import { rand } from '@vueuse/core'
+
 const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const loadingStr = ref('正在初始化...')
-// function handleConnecting() {
-//   // Connecting...
-   
-// }
-
-// function handleConnectFailed({ errCode, errMsg }: CallbackEvent<any>) {
-//   // Connection failed ❌
-//   console.log(errCode, errMsg);
-//   IMSDK.forceReconnect()
-// }
-
-// function handleConnectSuccess() {
-//   // initStore()
-//   // Connection successful ✅
-//    router.push('/conversation')
-// }
       
 // const name =  ['向阳花','追光者','暖阳照','正能量','心飞扬','梦启航','乐无忧','永向前','常微笑','光芒现','奋斗吧','望未来','展翅飞','喜洋洋','晴空蓝','向上冲','步步高','创世纪','好心情','充满爱']
 const name = [
@@ -236,22 +221,14 @@ const name = [
   '大成功',
   '乐开颜'
 ];
-// const imge = [
-//       'https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_06.webp',
-//       'https://kefu.acstudy.icu/api/object/9653164283/1761021086245png',
-//       "https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_03.webp",
-//       "https://kefu.acstudy.icu/api/object/1246839606/ic_avatar_02.webp"]
-
-const imge =[  
-      'https://web.kfhao.icu/api/object/3158674023/ic_avatar_01.webp',
-      'https://web.kfhao.icu/api/object/3158674023/ic_avatar_02.webp',
-      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_03.webp",
-      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_04.webp",
-      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_05.webp",
-      "https://web.kfhao.icu/api/object/3158674023/ic_avatar_06.webp",
-      "https://web.kfhao.icu/api/object/3158674023/user.webp",
+const imge = [
+      `${getApiUrl()}/object/4489730844/ic_avatar_01.webp`,
+      `${getApiUrl()}/object/4489730844/ic_avatar_02.webp`,
+      `${getApiUrl()}/object/4489730844/ic_avatar_03.webp`,
+      `${getApiUrl()}/object/4489730844/ic_avatar_04.webp`,
+      `${getApiUrl()}/object/4489730844/ic_avatar_05.webp`,
+      `${getApiUrl()}/object/4489730844/ic_avatar_06.webp`
 ]
-
 const onchaliAuto = async () => {
 
   let vemail = "";
