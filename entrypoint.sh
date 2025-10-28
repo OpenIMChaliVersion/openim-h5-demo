@@ -9,7 +9,7 @@ if [ -z "$NEW_DOMAIN" ]; then
     NEW_DOMAIN="localhost"
 else 
     TARGET_BASE_URL="https://$NEW_DOMAIN"
-    TARGET_DOMAIN = $NEW_DOMAIN
+    TARGET_DOMAIN=$NEW_DOMAIN
 fi
 
 # 完整的 BASE_URL 路径
