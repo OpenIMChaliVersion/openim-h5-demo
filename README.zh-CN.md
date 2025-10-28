@@ -124,3 +124,23 @@ cp -r /www/wwwroot/hao.domain.icu_nginx/*  /etc/nginx/ssl/
 ```
 
 ```
+
+
+
+4. 动态域名替换
+
+传域名，用户使用域名访问
+```
+docker run -d \
+  --name openim-mobile-front-prod \
+  -e NEW_DOMAIN=api.production-domain.com \
+  -p 11003:80 \
+  --network openim-docker_openim \
+  openim-h5-demo:latest
+
+docker run -d --name openim-mobile-front-prod -e NEW_DOMAIN=api.production-domain.com -p 11003:80 --network openim-docker_openim openim-h5-demo:latest
+
+```
+不传域名，用户是用IP访问
+```
+```
