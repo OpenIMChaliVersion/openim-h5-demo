@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+echo "--- ALL ENV VARS START ---"
+env
+echo "--- ALL ENV VARS END ---"
 # 检查 NEW_DOMAIN 环境变量是否设置，如果没有则使用默认值
 if [ -z "$NEW_DOMAIN" ]; then
     echo "Warning: NEW_DOMAIN environment variable is not set. Using 'localhost' as default."
