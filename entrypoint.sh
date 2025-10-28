@@ -9,11 +9,11 @@ if [ -z "$NEW_DOMAIN" ]; then
     NEW_DOMAIN="localhost"
 else 
     TARGET_BASE_URL="https://$NEW_DOMAIN"
+    TARGET_DOMAIN = $NEW_DOMAIN
 fi
 
 # 完整的 BASE_URL 路径
 TARGET_BASE_URL="https://$NEW_DOMAIN"
-TARGET_DOMAIN=$NEW_DOMAIN
 # Nginx 静态文件的默认根目录
 NGINX_ROOT=/usr/share/nginx/html
 # 占位符字符串，通常在您的前端代码中
