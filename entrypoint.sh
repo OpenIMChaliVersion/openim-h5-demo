@@ -32,14 +32,11 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # 复制替换脚本
-COPY entrypoint.sh /usr/local/bin/
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# *** 关键修复步骤：安装 dos2unix 并转换脚本格式 ***
-# 这解决了 'exec format error' 错误 (Windows换行符问题)
-RUN apk add --no-cache dos2unix \
-    && dos2unix /usr/local/bin/entrypoint.sh \
-    && chmod +x /usr/local/bin/entrypoint.sh \
-    && rm -rf /var/cache/apk/*
+# *** 简化后的 RUN 步骤：仅设置执行权限 ***
+# 假设文件在 Ubuntu 环境下创建，格式为 Linux LF 格式
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # 暴露 HTTP 端口
 EXPOSE 80
