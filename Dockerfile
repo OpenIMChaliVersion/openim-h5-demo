@@ -8,7 +8,6 @@ FROM node:18.20.8 AS builder
 WORKDIR /app
 
 # 将 package.json 和 package-lock.json 复制到工作目录
-# 这样可以利用 Docker 缓存，如果依赖未改变，则跳过 npm install
 COPY package*.json ./
 
 # 安装依赖
@@ -18,7 +17,6 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # 运行构建命令，生成静态文件到 dist 目录
-# 确保在构建前修改配置指向正确的 OpenIM Server API
 RUN npm run build
 
 
@@ -28,18 +26,22 @@ RUN npm run build
 # ==========================================================
 FROM nginx:alpine
 
-# 复制 Nginx 配置文件 (可选: 如果你需要自定义配置，例如设置反向代理、路由规则)
-# 如果项目没有提供自定义 Nginx 配置，可以跳过或使用默认配置
+# 复制 Nginx 配置文件
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 从构建阶段复制最终的静态文件 (dist 目录的内容) 到 Nginx 的默认网页目录
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# 复制替换脚本到容器内，并赋予执行权限
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # 暴露 HTTP 端口
 EXPOSE 80
 
-# 启动 Nginx 服务
-CMD ["nginx", "-g", "daemon off;"]
+# ***关键修复：将 CMD 更改为 ENTRYPOINT，以确保脚本在 Nginx 之前运行***
+# ENTRYPOINT 会在容器启动时执行 entrypoint.sh 脚本
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# CMD 保持为空或设置为默认参数（如果 ENTRYPOINT 脚本需要接收参数）
+CMD []
