@@ -1,9 +1,3 @@
 [
-      'https://web.kfhao.icu/api/object/4489730844/ic_avatar_01.webp',
-      'https://web.kfhao.icu/api/object/4489730844/ic_avatar_02.webp',
-      "https://web.kfhao.icu/api/object/4489730844/ic_avatar_03.webp",
-      "https://web.kfhao.icu/api/object/4489730844/ic_avatar_04.webp",
-      "https://web.kfhao.icu/api/object/4489730844/ic_avatar_05.webp",
-      "https://web.kfhao.icu/api/object/4489730844/ic_avatar_06.webp",
-      "https://web.kfhao.icu/api/object/4489730844/user.webp",
+
 ]
