@@ -32,7 +32,7 @@ export default function useCreateFileMessage() {
       sourcePicture: baseInfo,
       bigPicture: baseInfo,
       snapshotPicture: baseInfo,
-      // sourcePath: '',
+      sourcePath: '',
       file,
     }
     var messageimg = await IMSDK.createImageMessageByFile(options)
