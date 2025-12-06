@@ -116,12 +116,11 @@ const switchTextMessage = async () => {
   console.log("消息类型"+message?.contentType+"qweqw")
   if (message) {
     console.log("消息类型"+message.contentType)
-    if(isAt.value){
+    if( isAt.value == true ){
        sendMessage({ message,needOpreateMessage:isAt.value})
     }else{
-      sendMessage({ message})
+       sendMessage({ message})
     }
-    
   }
   resetState()
 }

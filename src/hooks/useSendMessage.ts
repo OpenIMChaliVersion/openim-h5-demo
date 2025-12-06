@@ -6,6 +6,7 @@ import { IMSDK } from '@/utils/imCommon'
 import type { MessageItem } from '@openim/client-sdk/lib/types/entity'
 import { MessageStatus } from '@openim/client-sdk'
 import { SendMsgParams } from '@openim/client-sdk/lib/types/params'
+import { feedbackToast } from '@/utils/common'
 
 const messageStore = useMessageStore()
 const conversationStore = useConversationStore()
@@ -42,9 +43,10 @@ export default function useSendMessage() {
       // @ts-ignore
       const { data: successMessage } = await IMSDK.sendMessage(options)
       messageStore.updateOneMessage(successMessage as ExMessageItem, true)
+      feedbackToast({message:"消息发送成功"})
     } catch (error) {
       console.error(error)
-
+      feedbackToast({message:"请检测网络，消息发送失败，请重新发送"})
       messageStore.updateOneMessage({
         ...message,
         status: MessageStatus.Failed,

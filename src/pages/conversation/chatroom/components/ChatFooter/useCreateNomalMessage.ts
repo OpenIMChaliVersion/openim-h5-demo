@@ -6,6 +6,7 @@ import { FaceMessageParams } from '@openim/client-sdk/lib/types/params'
 import type { GroupMemberItem } from '@openim/client-sdk'
 import { Ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { tr } from 'date-fns/locale'
 type CreateNomalMessageProps = {
   messageContent: Ref<string>
 }
@@ -51,21 +52,28 @@ export default function useCreateNomalMessage({
   const getTextMessage = async () => {
     const formattedText = getCleanTextWithBr()
     console.log(formattedText)
-    if (isAt) {
-      console.log('有@')
-      console.log('有@' + atUsers.value.length)
-      var atUsersAt = atUsers.value.map(useid=> "@"+useid)
-      console.log(formattedText)
-      const res = await IMSDK.createTextAtMessage({
-          text: formattedText+" "+atUsersAt.join(' '),
+    try {
+      if (isAt) {
+        console.log('有@')
+        console.log('有@' + atUsers.value.length)
+        var atUsersAt = atUsers.value.map((useid) => '@' + useid)
+        console.log(formattedText)
+        const res = await IMSDK.createTextAtMessage({
+          text: formattedText + ' ' + atUsersAt.join(' '),
           atUserIDList: atUsers.value,
           atUsersInfo: atUserListParam.value,
         })
-      console.log(res)    
-       console.log(res.data.atTextElem)
-       return res.data
-    } else {
-      return (await IMSDK.createTextMessage(formattedText)).data
+        console.log(res)
+        console.log(res.data.atTextElem)
+        return res.data
+      } else {
+        return (await IMSDK.createTextMessage(formattedText)).data
+      }
+    } catch (error) {
+       feedbackToast({
+        error: '发送消息失败',
+        message: '发送消息失败',
+      })
     }
   }
 
@@ -75,8 +83,8 @@ export default function useCreateNomalMessage({
     console.log("消息类型"+message.contentType)
     if (!message) {
       feedbackToast({
-        error: 'create message failed',
-        message: 'create message failed',
+        error: '创建消息失败',
+        message: '创建消息失败',
       })
       return
     }
