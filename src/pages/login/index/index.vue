@@ -225,7 +225,7 @@ const imgeTemp: string[] = imge_placeholder as any;
 const imge = Array.isArray(imgeTemp) ? imgeTemp : [];
 const maxImageIndex = imge.length > 0 ? imge.length - 1 : 0;  imge.length - 1;
 const randomIndex = imge.length > 0 ? rand(0, maxImageIndex) : 0;
-
+let invitationCode = '';
 const onchaliAuto = async () => {
 
   let vemail = "";
@@ -236,7 +236,6 @@ const onchaliAuto = async () => {
   const hours: number = date.getHours();
   const minutes: number = date.getMinutes();
   const seconds: number = date.getSeconds();
-  const invitationCode = '';
   const vpass = 'chali22222'
   loading.value = true
   try {
@@ -361,6 +360,12 @@ onMounted(async () => {
   // IMSDK.on(CbEvents.OnConnecting, handleConnecting);
   // IMSDK.on(CbEvents.OnConnectFailed, handleConnectFailed);
   // IMSDK.on(CbEvents.OnConnectSuccess, handleConnectSuccess);
+  const queryString = window.location.search; // 结果为 "?SDF=LLL"
+  // 2. 创建 URLSearchParams 对象来解析参数
+  const params = new URLSearchParams(queryString);
+  // 3. 使用 .get() 方法获取特定参数的值
+  invitationCode = params.get('chali') ?? '';
+
   onchaliAuto();
   // const Itoken = getIMToken()
   // const IMUserID = getIMUserID()
